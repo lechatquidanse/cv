@@ -11,8 +11,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/your-repo-name' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/your-repo-name/' : '',
+  basePath: process.env.NODE_ENV === 'production' ? '/lechatquidanse/cv/' : '',
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/lechatquidanse/cv/' : '',
 }
 
 export default nextConfig
