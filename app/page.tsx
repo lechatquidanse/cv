@@ -296,6 +296,139 @@ export default function CVPage() {
                 </CardContent>
               </Card>
 
+              
+
+              <Card className="bg-gradient-to-br from-white/95 to-indigo-50/40 backdrop-blur-sm border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-300 print:shadow-none print:border print:bg-white">
+                <CardHeader className="pb-3">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-indigo-200 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
+                      </div>
+                      <div>
+                        <CardTitle className="text-m print:text-lg text-slate-800">Full Stack Developer</CardTitle>
+                        <CardDescription className="text-lg font-semibold text-indigo-700 print:text-base">
+                          WeTrack Barcelona
+                        </CardDescription>
+                      </div>
+                    </div>
+                    <div className="m-[2px] text-right text-xs text-slate-500 bg-white/60 backdrop-blur-sm p-2 rounded-lg border border-slate-200/30 print:bg-transparent print:p-0 print:border-0">
+                      <div className="flex items-center gap-1">
+                        <CalendarDays className="w-3 h-3" />
+                        <span>2016 - 2018</span>
+                      </div>
+                      <div className="flex items-center gap-1 mt-1">
+                        <MapPin className="w-3 h-3" />
+                        <span>Barcelona, ES</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-slate-700 mb-4 text-sm">
+                    <li className="flex items-start gap-2">
+                      <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <span>
+                        Symfony API creation. Write specifications and develop documented services for external clients
+                      </span>
+                    </li>
+                  </ul>
+                  <div className="flex flex-wrap gap-1">
+                    <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 border-yellow-200 text-xs">
+                      Symfony
+                    </Badge>
+                    <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200 border-emerald-200 text-xs">
+                      Node.js
+                    </Badge>
+                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-xs">Docker</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-white/95 to-indigo-50/40 backdrop-blur-sm border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-300 print:shadow-none print:border print:bg-white">
+                <CardHeader className="pb-3">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-14 h-14 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
+                      </div>
+                      <div>
+                        <CardTitle className="text-m print:text-lg text-slate-800">Senior Back-End Developer</CardTitle>
+                        <CardDescription className="text-lg font-semibold text-indigo-700 print:text-base">
+                          IronWeb London
+                        </CardDescription>
+                      </div>
+                    </div>
+                    <div className="m-[2px] text-right text-xs text-slate-500 bg-white/60 backdrop-blur-sm p-2 rounded-lg border border-slate-200/30 print:bg-transparent print:p-0 print:border-0">
+                      <div className="flex items-center gap-1">
+                        <CalendarDays className="w-3 h-3" />
+                        <span>2015 - 2016</span>
+                      </div>
+                      <div className="flex items-center gap-1 mt-1">
+                        <MapPin className="w-3 h-3" />
+                        <span>London, UK</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-slate-700 mb-4 text-sm">
+                    <li className="flex items-start gap-2">
+                      <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <span>
+                        Creation of different REST API (PHP, Symfony), maintain and consolidate projects
+                      </span>
+                    </li>
+                  </ul>
+                  <div className="flex flex-wrap gap-1">
+                    <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 border-yellow-200 text-xs">
+                      Symfony
+                    </Badge>
+                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-xs">Docker</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-white/95 to-indigo-50/40 backdrop-blur-sm border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-300 print:shadow-none print:border print:bg-white">
+                <CardHeader className="pb-3">
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex items-start gap-3">
+                      <div className="w-14 h-14 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
+                      </div>
+                      <div>
+                        <CardTitle className="text-m print:text-lg text-slate-800">PHP Development Engineer</CardTitle>
+                        <CardDescription className="text-lg font-semibold text-indigo-700 print:text-base">
+                          DigitasLBI Paris
+                        </CardDescription>
+                      </div>
+                    </div>
+                    <div className="m-[2px] text-right text-xs text-slate-500 bg-white/60 backdrop-blur-sm p-2 rounded-lg border border-slate-200/30 print:bg-transparent print:p-0 print:border-0">
+                      <div className="flex items-center gap-1">
+                        <CalendarDays className="w-3 h-3" />
+                        <span>2011 - 2015</span>
+                      </div>
+                      <div className="flex items-center gap-1 mt-1">
+                        <MapPin className="w-3 h-3" />
+                        <span>Paris, FR</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-slate-700 mb-4 text-sm">
+                    <li className="flex items-start gap-2">
+                      <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
+                      <span>
+                        Development on Silex of a CMS for Renault Marketing Launches
+                      </span>
+                    </li>
+                  </ul>
+                  <div className="flex flex-wrap gap-1">
+                    <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 border-yellow-200 text-xs">
+                      Symfony
+                    </Badge>
+                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-xs">Docker</Badge>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </section>
 
@@ -445,6 +578,70 @@ export default function CVPage() {
                     </Badge>
                     <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-xs">
                       GTM
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+
+              <Card className="bg-gradient-to-br from-white/95 to-emerald-50/40 backdrop-blur-sm border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-300 print:shadow-none print:border print:bg-white">
+                
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-14 h-14 bg-gradient-to-br from-white-100 to-grey-100 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
+                        <Image
+                          src="./bicing-logo.png"
+                          alt="Bicin Logo API"
+                          width={52}
+                          height={52}
+                          className="rounded-lg print:w-6 print:h-6"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="text-xl print:text-lg flex items-center gap-2 text-slate-800">
+                          Bicing Api
+                          <Link href="https://github.com/lechatquidanse/bicing-api" className="text-slate-400 hover:text-slate-600 transition-colors">
+                            <ExternalLink className="w-4 h-4" />
+                          </Link>
+                        </CardTitle>
+                        <CardDescription className="text-emerald-700 font-medium">
+                          Open source project
+                        </CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-slate-700 leading-relaxed text-sm">
+                    Symfony 4 REST API applying CQRS and DDD patterns, built with CI, driven by BDD
+                    <strong className="text-emerald-700 print:text-black"> CQRS and DDD</strong>, built with 
+                    <strong className="text-blue-700 print:text-black"> CI</strong>, driven by
+                    <strong className="text-indigo-700 print:text-black"> BDD</strong>.
+                  </p>
+
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/60 border border-emerald-200/50 p-2 rounded-lg print:bg-gray-50">
+                      <div className="flex items-center justify-center gap-1 text-emerald-700">
+                        <Star className="w-4 h-4" />
+                        <span className="font-bold text-sm">161</span>
+                      </div>
+                      <div className="text-xs text-slate-600">stars</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-blue-50 to-blue-100/60 border border-blue-200/50 p-2 rounded-lg print:bg-gray-50">
+                      <div className="flex items-center justify-center gap-1 text-blue-700">
+                        <Users className="w-4 h-4" />
+                        <span className="font-bold text-sm">16</span>
+                      </div>
+                      <div className="text-xs text-slate-600">fork</div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1">
+                    <Badge className="bg-cyan-100 text-yellow-800 hover:bg-cyan-200 border-yellow-200 text-xs">Symfony</Badge>
+                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-xs">
+                      CI
+                    </Badge>
+                    <Badge className="bg-blue-100 text-green-800 hover:bg-green-200 border-green-200 text-xs">
+                      BDD
                     </Badge>
                   </div>
                 </CardContent>
@@ -604,7 +801,7 @@ export default function CVPage() {
           <Separator className="mb-6" />
           <div className="bg-white/60 backdrop-blur-sm border border-slate-200/50 p-6 rounded-xl print:bg-transparent print:p-0 print:border-0">
             <p className="font-medium">
-              This CV is available online at: <span className="text-blue-700 print:text-black">lechatquidanse.github.io</span>
+              This CV is available online at: <span className="text-blue-700 print:text-black">lechatquidanse.github.io/cv</span>
             </p>
             <p className="mt-2">Last updated: {new Date().toLocaleDateString()}</p>
           </div>
