@@ -72,7 +72,7 @@ export default function CVPage() {
               <p className="text-slate-700 leading-relaxed text-lg print:text-base">
                 With over <strong className="text-blue-700 print:text-black">15 years</strong> in development, I focus on delivering <strong className="text-emerald-700 print:text-black">clean, robust</strong> and <strong className="text-emerald-700 print:text-black">customer-oriented code</strong>.
                 <br/>I take time to understand the domain, clarify what's needed and write well-tested solutions.
-                <br/>I follow <strong className="text-emerald-700 print:text-black">agile principles</strong>, solve real-world problems, and use the right tech (<strong className="text-indigo-700 print:text-black">Symfony, React, Flutter, Python...</strong>) for each project.
+                <br/>I follow <strong className="text-emerald-700 print:text-black">agile principles</strong>, solve real-world problems and use the right tech (<strong className="text-indigo-700 print:text-black">Symfony, React, Flutter, Python...</strong>) for each project.
                 Always learning. Always improving.
               </p>
             </CardContent>
@@ -133,7 +133,7 @@ export default function CVPage() {
                     <li className="flex items-start gap-2">
                       <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
                       <span>
-                        Delivered invoice features with automated <strong className="text-emerald-700 print:text-black">PDF generation</strong> for 10k daily users.
+                        Delivered invoice features with automated <strong className="text-emerald-700 print:text-black">PDF generation</strong> for 10k weekly users.
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
@@ -202,7 +202,7 @@ export default function CVPage() {
                     <li className="flex items-start gap-2">
                       <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
                       <span>
-                        Developed a <strong className="text-emerald-700 print:text-black">domain-driven, event-sourced applicatio</strong> using Symfony to ensure high scalability and auditability.
+                        Developed a <strong className="text-emerald-700 print:text-black">domain-driven, event-sourced application</strong> using Symfony to ensure high scalability and auditability.
                       </span>
                     </li>
                     <li className="flex items-start gap-2">
@@ -328,7 +328,7 @@ export default function CVPage() {
                     <li className="flex items-start gap-2">
                       <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
                       <span>
-                        Symfony API creation. Write specifications and develop documented services for external clients
+                        Symfony API creation. Write specifications and develop documented services for external clients.
                       </span>
                     </li>
                   </ul>
@@ -374,7 +374,7 @@ export default function CVPage() {
                     <li className="flex items-start gap-2">
                       <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
                       <span>
-                        Creation of different REST API (PHP, Symfony), maintain and consolidate projects
+                        Creation of different REST API (PHP, Symfony), maintain and consolidate projects.
                       </span>
                     </li>
                   </ul>
@@ -417,7 +417,7 @@ export default function CVPage() {
                     <li className="flex items-start gap-2">
                       <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 flex-shrink-0"></div>
                       <span>
-                        Development on Silex of a CMS for Renault Marketing Launches
+                        Development on Silex of a CMS for Renault Marketing Launches.
                       </span>
                     </li>
                   </ul>
@@ -467,7 +467,7 @@ export default function CVPage() {
                   </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-slate-700 leading-relaxed text-sm">
-                    Designed a football quiz game application with
+                    Designed a football quiz application with
                     <strong className="text-emerald-700 print:text-black"> functional programming</strong>,
                     <strong className="text-blue-700 print:text-black"> API testing</strong>, and{" "}
                     <strong className="text-indigo-700 print:text-black">performance monitoring</strong> features.
@@ -513,11 +513,116 @@ export default function CVPage() {
                     <Badge className="bg-violet-100 text-violet-800 hover:bg-violet-200 border-violet-200 text-xs">
                       iOS
                     </Badge>
-                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-xs">
+                    <Badge className="bg-green-100 text-green-800 hover:bg-green-200 border-green-200 text-xs">
                       Android
+                    </Badge>
+                    <Badge className="bg-red-100 text-red-800 hover:bg-red-200 border-red-200 text-xs">
+                      Firebase
                     </Badge>
                     <Badge className="bg-blue-100 text-green-800 hover:bg-green-200 border-green-200 text-xs">
                       GoogleAd
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-white/95 to-emerald-50/40 backdrop-blur-sm border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-300 print:shadow-none print:border print:bg-white">
+                
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-14 h-14 bg-gradient-to-br from-white-100 to-grey-100 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
+                        <Image
+                          src="./bicing-logo.png"
+                          alt="Bicin Logo API"
+                          width={52}
+                          height={52}
+                          className="rounded-lg print:w-6 print:h-6"
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="text-xl print:text-lg flex items-center gap-2 text-slate-800">
+                          Bicing Api
+                          <Link href="https://github.com/lechatquidanse/bicing-api" className="text-slate-400 hover:text-slate-600 transition-colors">
+                            <ExternalLink className="w-4 h-4" />
+                          </Link>
+                        </CardTitle>
+                        <CardDescription className="text-emerald-700 font-medium">
+                          Open source project
+                        </CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-slate-700 leading-relaxed text-sm">
+                    Symfony 4 REST API applying
+                    <strong className="text-emerald-700 print:text-black"> CQRS and DDD</strong>, built with 
+                    <strong className="text-blue-700 print:text-black"> CI</strong>, driven by
+                    <strong className="text-indigo-700 print:text-black"> BDD</strong>.
+                  </p>
+
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/60 border border-emerald-200/50 p-2 rounded-lg print:bg-gray-50">
+                      <div className="flex items-center justify-center gap-1 text-emerald-700">
+                        <Star className="w-4 h-4" />
+                        <span className="font-bold text-sm">161</span>
+                      </div>
+                      <div className="text-xs text-slate-600">Github stars</div>
+                    </div>
+                    <div className="bg-gradient-to-br from-blue-50 to-blue-100/60 border border-blue-200/50 p-2 rounded-lg print:bg-gray-50">
+                      <div className="flex items-center justify-center gap-1 text-blue-700">
+                        <Users className="w-4 h-4" />
+                        <span className="font-bold text-sm">16</span>
+                      </div>
+                      <div className="text-xs text-slate-600">fork</div>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1">
+                    <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 border-yellow-200 text-xs">Symfony</Badge>
+                    <Badge className="bg-red-100 text-red-800 hover:bg-red-200 border-red-200 text-xs">
+                      CI
+                    </Badge>
+                    <Badge className="bg-blue-100 text-green-800 hover:bg-green-200 border-green-200 text-xs">
+                      BDD
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-white/95 to-amber-50/40 backdrop-blur-sm border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-300 print:shadow-none print:border print:bg-white">
+                <CardHeader className="pb-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-14 h-14 bg-gradient-to-br from-blue-100 to-blue-300 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
+                    </div>
+                    <div className="flex-1">
+                      <CardTitle className="text-xl print:text-lg flex items-center gap-2 text-slate-800">
+                        My CV
+                        <Link href="./" className="text-slate-400 hover:text-slate-600 transition-colors">
+                          <ExternalLink className="w-4 h-4" />
+                        </Link>
+                      </CardTitle>
+                      <CardDescription className="text-amber-700 font-medium">
+                        Website to this CV
+                      </CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-slate-700 leading-relaxed text-sm">
+                    5 hours project to create a CV using AI tools and Github pages
+                    <strong className="text-cyan-700 print:text-black"> AI tools</strong> and{" "}
+                    <strong className="text-blue-700 print:text-black">GitHubPages</strong>.
+                  </p>
+
+                  <div className="flex flex-wrap gap-1">
+                    <Badge className="bg-black-100 text-black-800 hover:bg-black-200 border-black-200 text-xs">
+                      v0
+                    </Badge>
+                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-sm py-1">
+                      NextJs
+                    </Badge>
+                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-xs">
+                      Github Pages
                     </Badge>
                   </div>
                 </CardContent>
@@ -550,7 +655,7 @@ export default function CVPage() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <p className="text-slate-700 leading-relaxed text-sm">
-                    Developed an Eeommerce webiste for a french beer beer
+                    Developed an Ecommerce for a French beer brand. Using
                     <strong className="text-green-700 print:text-black"> Shopify</strong> template creation and{" "}
                     <strong className="text-blue-700 print:text-black">GTM tracking</strong> to boost sales.
                   </p>
@@ -584,68 +689,6 @@ export default function CVPage() {
               </Card>
 
 
-              <Card className="bg-gradient-to-br from-white/95 to-emerald-50/40 backdrop-blur-sm border border-slate-200/50 shadow-lg hover:shadow-xl transition-all duration-300 print:shadow-none print:border print:bg-white">
-                
-                  <CardHeader className="pb-3">
-                    <div className="flex items-start gap-3">
-                      <div className="w-14 h-14 bg-gradient-to-br from-white-100 to-grey-100 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
-                        <Image
-                          src="./bicing-logo.png"
-                          alt="Bicin Logo API"
-                          width={52}
-                          height={52}
-                          className="rounded-lg print:w-6 print:h-6"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <CardTitle className="text-xl print:text-lg flex items-center gap-2 text-slate-800">
-                          Bicing Api
-                          <Link href="https://github.com/lechatquidanse/bicing-api" className="text-slate-400 hover:text-slate-600 transition-colors">
-                            <ExternalLink className="w-4 h-4" />
-                          </Link>
-                        </CardTitle>
-                        <CardDescription className="text-emerald-700 font-medium">
-                          Open source project
-                        </CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                <CardContent className="space-y-4">
-                  <p className="text-slate-700 leading-relaxed text-sm">
-                    Symfony 4 REST API applying CQRS and DDD patterns, built with CI, driven by BDD
-                    <strong className="text-emerald-700 print:text-black"> CQRS and DDD</strong>, built with 
-                    <strong className="text-blue-700 print:text-black"> CI</strong>, driven by
-                    <strong className="text-indigo-700 print:text-black"> BDD</strong>.
-                  </p>
-
-                  <div className="grid grid-cols-3 gap-2 text-center">
-                    <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/60 border border-emerald-200/50 p-2 rounded-lg print:bg-gray-50">
-                      <div className="flex items-center justify-center gap-1 text-emerald-700">
-                        <Star className="w-4 h-4" />
-                        <span className="font-bold text-sm">161</span>
-                      </div>
-                      <div className="text-xs text-slate-600">stars</div>
-                    </div>
-                    <div className="bg-gradient-to-br from-blue-50 to-blue-100/60 border border-blue-200/50 p-2 rounded-lg print:bg-gray-50">
-                      <div className="flex items-center justify-center gap-1 text-blue-700">
-                        <Users className="w-4 h-4" />
-                        <span className="font-bold text-sm">16</span>
-                      </div>
-                      <div className="text-xs text-slate-600">fork</div>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1">
-                    <Badge className="bg-cyan-100 text-yellow-800 hover:bg-cyan-200 border-yellow-200 text-xs">Symfony</Badge>
-                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-xs">
-                      CI
-                    </Badge>
-                    <Badge className="bg-blue-100 text-green-800 hover:bg-green-200 border-green-200 text-xs">
-                      BDD
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
             </div>
           </section>
         </div>
