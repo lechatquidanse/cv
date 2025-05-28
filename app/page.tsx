@@ -732,6 +732,15 @@ export default function CVPage() {
                     Backend
                   </h3>
                   <div className="flex flex-wrap gap-3">
+                    <Badge className="bg-slate-100 text-slate-800 hover:bg-slate-200 border-slate-200 text-sm py-1">
+                      PHP
+                    </Badge>
+                    <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200 border-yellow-200 text-sm py-1">
+                      Symfony
+                    </Badge>
+                    <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200 border-orange-200 text-sm py-1">
+                      Laravel
+                    </Badge>
                     <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200 border-emerald-200 text-sm py-1">
                       Node.js
                     </Badge>
@@ -740,9 +749,6 @@ export default function CVPage() {
                     </Badge>
                     <Badge className="bg-green-100 text-green-800 hover:bg-green-200 border-green-200 text-sm py-1">
                       Django
-                    </Badge>
-                    <Badge className="bg-slate-100 text-slate-800 hover:bg-slate-200 border-slate-200 text-sm py-1">
-                      Express.js
                     </Badge>
                     <Badge className="bg-pink-100 text-pink-800 hover:bg-pink-200 border-pink-200 text-sm py-1">
                       GraphQL
@@ -780,6 +786,9 @@ export default function CVPage() {
                     Mobile & Tools
                   </h3>
                   <div className="flex flex-wrap gap-3">
+                    <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-sm py-1">
+                      Flutter
+                    </Badge>
                     <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200 text-sm py-1">
                       React Native
                     </Badge>
