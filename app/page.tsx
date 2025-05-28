@@ -25,7 +25,7 @@ export default function CVPage() {
          <div className="relative inline-block mb-6">
             <div className="w-36 h-36 rounded-full overflow-hidden shadow-lg print:shadow-none relative border-4 border-white">
               <Image
-                src="/stephane-elmanouni.jpeg"
+                src="./stephane-elmanouni.jpeg"
                 alt="Stephane EL MANOUNI Profile Picture"
                 width={144}
                 height={144}
@@ -94,7 +94,7 @@ export default function CVPage() {
                     <div className="flex items-start gap-3">
                       <div className="w-14 h-14 bg-gradient-to-br from-purple-300 to-purple-400 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
                         <Image
-                          src="/kooomo.png"
+                          src="./kooomo.png"
                           alt="Kooomo Logo"
                           width={32}
                           height={32}
@@ -165,7 +165,7 @@ export default function CVPage() {
                     <div className="flex items-start gap-3">
                       <div className="w-14 h-14 bg-gradient-to-br from-pink-100 to-pink-200 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
                         <Image
-                          src="/zeelo_logo.jpeg"
+                          src="./zeelo_logo.jpeg"
                           alt="Zeelo Logo"
                           width={32}
                           height={32}
@@ -312,7 +312,7 @@ export default function CVPage() {
                     <div className="flex items-start gap-3">
                       <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
                         <Image
-                          src="/foot_master_quiz.webp"
+                          src="./foot_master_quiz.webp"
                           alt="Foot Master Quiz"
                           width={52}
                           height={52}
@@ -395,7 +395,7 @@ export default function CVPage() {
                   <div className="flex items-start gap-3">
                     <div className="w-14 h-14 bg-gradient-to-br from-blue-800 to-blue-900 rounded-xl flex items-center justify-center shadow-md print:w-10 print:h-10">
                       <Image
-                        src="/ladeux_cinq_logo.png"
+                        src="./ladeux_cinq_logo.png"
                         alt="Deux Cinq logo"
                         width={48}
                         height={48}
@@ -431,7 +431,7 @@ export default function CVPage() {
 
                   <div className="space-y-3 print:hidden">
                       <Image
-                        src="/la_deux_cinq.png"
+                        src="./la_deux_cinq.png"
                         alt="La deux cinq Screenshot 1"
                         width={160}
                         height={120}
@@ -572,7 +572,7 @@ export default function CVPage() {
                 <div className="flex items-start gap-4">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-indigo-100 rounded-xl flex items-center justify-center shadow-md print:w-12 print:h-12">
                     <Image
-                      src="/polytech.jpg"
+                      src="./polytech.jpg"
                       alt="Polytech Logo"
                       width={48}
                       height={48}
