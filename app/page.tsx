@@ -602,7 +602,7 @@ export default function CVPage() {
                         </Link>
                       </CardTitle>
                       <CardDescription className="text-amber-700 font-medium">
-                        Website to this CV
+                        Website to display this CV
                       </CardDescription>
                     </div>
                   </div>
