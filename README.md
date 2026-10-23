@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Stéphane El Manouni · CV
 
-## Getting Started
+Live at **https://lechatquidanse.github.io/cv/**. A static Next.js export on GitHub Pages.
 
-First, run the development server:
+On screen the CV is one vertical page with a sticky bar (section links that follow the
+reader, and the PDF). In print the same page becomes a 2-page A4 CV, and that print is the
+downloadable PDF, so the website and the PDF never drift apart.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Commands
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Local preview at http://localhost:3000 |
+| `npm run build` | Static export to `out/`; fails on invalid CV content |
+| `npm run pdf` | Prints every variant to an A4 PDF inside `out/` (needs a build first) |
+| `npm test` | Checks the export: pages, links, PDFs (2 A4 pages), no leaks, real-device widths, navigation, video |
+| `npm run check` | All of the above, in order |
+| `npm run serve` | Serves `out/` at http://127.0.0.1:4173/cv/, like GitHub Pages |
+
+First time: `npm ci && npx playwright install chromium`.
+
+Pushing to `main` runs the same steps in GitHub Actions and deploys only if every test passes.
+
+## Editing the CV
+
+All facts live in **`lib/cv/content.ts`**; components never hold CV text.
+
+- Write only what you could defend in an interview. Unconfirmed facts go to `docs/OPEN-QUESTIONS.md`.
+- Every metric has a `source` and an `asOf` month. Re-check them before each job search.
+- Nothing internal to an employer: no ticket keys, internal URLs, client ids or screenshots.
+- An achievement with `featured: true` shows on screen; every achievement is printed.
+- Both PDFs must stay at exactly 2 A4 pages: `npm test` fails otherwise, so shorten text
+  rather than adding a third page.
+- The app video lives in `public/media/` (MP4 for Safari, WebM for other browsers, plus a poster).
+
+## A CV for a specific job offer
+
+Each offer gets its own page and PDF, e.g. `/cv/hey-mondo/`. To add one, append a variant to
+`jobVariants` in **`lib/cv/variants.ts`**:
+
+```ts
+{
+  slug: "acme",                       // → /cv/acme/
+  headline: "Senior Backend Engineer · PHP",
+  pitch: "…",                         // optional; must only restate facts from content.ts
+  roles: { expandnow: { order: [...], featured: [...] } },   // reorder / re-feature bullets
+  sectionIntros: { experience: "…", ai: "…", app: "…" },   // one line under each section title
+  skillsFirst: ["Backend", "Quality"],
+  fit: { company: "Acme", role: "…", offerUrl: "…", items: [{ requirement, evidence, match }] },
+  pdfFileName: "Stephane-El-Manouni-CV-Acme.pdf",
+  indexable: false,                   // job pages are shared by link, not indexed
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The `fit` list becomes a "Your offer, my evidence" section after the intro, and prints at the
+end of page 1. `sectionIntros` tie each section to the offer. Mark a requirement `partial` when the evidence is adjacent rather than direct.
+Never add a requirement you cannot back up; leave it out instead.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Suggested workflow for a new offer: paste the offer into Claude Code and ask it to propose a
+variant from `content.ts` only, then review every `evidence` line yourself.
