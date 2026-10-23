@@ -17,7 +17,7 @@ const PRINTED_BULLETS = 2
 
 function Heading({ children, aside }: { children: React.ReactNode; aside?: React.ReactNode }) {
   return (
-    <h2 className="mb-3 flex break-after-avoid items-baseline justify-between border-b border-rule pb-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-accent">
+    <h2 className="mb-2 flex break-after-avoid items-baseline justify-between border-b border-rule pb-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-accent">
       <span>{children}</span>
       {aside && <span className="normal-case tracking-normal text-muted">{aside}</span>}
     </h2>
@@ -50,7 +50,7 @@ function Header({ cv, websiteHref }: Props & { websiteHref: string }) {
 
 /** The value line, on its own full-width line under the header so it never wraps. */
 function ValueLine({ cv }: Props) {
-  return <p className="display mt-4 text-[18px] text-accent">{cv.profile.valueLine}</p>
+  return <p className="display mt-3 text-[18px] text-accent">{cv.profile.valueLine}</p>
 }
 
 /** Core, architecture and ways of working, as on the website's first screen. */
@@ -78,7 +78,7 @@ function PrintStory({ story }: { story: RoleStory }) {
   return (
     <div className="mt-2 break-inside-avoid rounded-lg border border-rule px-3 py-2">
       <p className="text-[11px] font-semibold">{story.title}</p>
-      <ol className="mt-1 grid grid-cols-3 gap-4 text-[10.5px] leading-snug text-ink-2">
+      <ol className="mt-1 grid grid-cols-[1fr_1.35fr_0.85fr] gap-4 text-[10.5px] leading-snug text-ink-2">
         {storySteps.map((step) => (
           <li key={step.key}>
             <span className="block font-mono text-[8.5px] uppercase tracking-[0.08em] text-accent">{step.label}</span>
@@ -152,7 +152,7 @@ function Experience({ cv }: Props) {
         <RoleBlock key={role.id} role={role} />
       ))}
       {/* Earlier roles: one line each, dates only (the cities are in the heading). */}
-      <ul className="mt-4 break-inside-avoid space-y-0.5 text-[11px] leading-normal">
+      <ul className="mt-1 break-inside-avoid space-y-0.5 text-[11px] leading-normal">
         {cv.earlierRoles.map((role) => (
           <li key={role.id} className="flex items-baseline justify-between gap-3">
             <span>
@@ -227,7 +227,7 @@ export function PrintCv({ cv }: Props) {
   const websiteHref = `${SITE_URL}${variant.slug ? `${variant.slug}/` : ""}`
   return (
     <div data-print-only className="print-cv">
-      <div className="space-y-6">
+      <div className="space-y-5">
         <div>
           <Header cv={cv} websiteHref={websiteHref} />
           <ValueLine cv={cv} />
