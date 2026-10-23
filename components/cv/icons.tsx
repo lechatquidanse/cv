@@ -33,14 +33,6 @@ export function PersonIcon({ size = 18 }: { size?: number }) {
   )
 }
 
-export function PlayIcon() {
-  return (
-    <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M8 5v14l11-7z" />
-    </svg>
-  )
-}
-
 export function AppleIcon() {
   return (
     <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -53,14 +45,6 @@ export function PlayStoreIcon() {
   return (
     <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
       <path d="M4 2.5v19c0 .4.4.6.7.4L20.5 12.4c.3-.2.3-.6 0-.8L4.7 2.1c-.3-.2-.7 0-.7.4z" />
-    </svg>
-  )
-}
-
-export function PauseIcon() {
-  return (
-    <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z" />
     </svg>
   )
 }

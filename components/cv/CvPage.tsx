@@ -8,7 +8,7 @@ export function CvPage({ cv }: { cv: ResolvedCv }) {
   const fit = cv.variant.fit
   const sections: NavSection[] = [
     ...(fit ? [{ id: "fit", label: "FIT", accent: true }] : []),
-    { id: "experience", label: "EXPERIENCES" },
+    { id: "experience", label: "EXPERIENCE" },
     { id: "ai", label: "AI", accent: true },
     { id: "projects", label: "PROJECTS" },
     { id: "contact", label: "CONTACT" },

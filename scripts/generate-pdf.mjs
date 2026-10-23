@@ -1,6 +1,6 @@
 // Prints every CV variant from the static export to an A4 PDF next to its page:
 //   out/Stephane-El-Manouni-CV.pdf, out/hey-mondo/Stephane-El-Manouni-CV-Heymondo.pdf, ...
-// Run after `next build`. The PDF is the page's own print stylesheet, so web and PDF never drift.
+// Runs after every `next build` (postbuild), because the build empties out/. The PDF is the page's own print stylesheet, so web and PDF never drift.
 import { readFileSync } from "node:fs"
 import { join } from "node:path"
 import { chromium } from "playwright"

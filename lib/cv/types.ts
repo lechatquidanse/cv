@@ -18,13 +18,6 @@ export interface Metric {
   asOf: string
 }
 
-/** One of the three "how I work" tiles in the intro. */
-export interface Pillar {
-  id: "tested" | "readable" | "users"
-  title: string
-  caption: string
-}
-
 export interface Spec {
   label: string
   value: string
@@ -33,6 +26,8 @@ export interface Spec {
 export interface Profile {
   name: string
   headline: string
+  /** The value proposition: as prominent as the name on screen. */
+  valueLine: string
   /** Status pill, e.g. "Available · Remote EU". */
   status: string
   pitch: string
@@ -46,25 +41,30 @@ export interface Profile {
   careerStart: number
   /** Languages used at work, shown with the cities in the experience section. */
   workingLanguages: string
-  pillars: Pillar[]
   specs: Spec[]
-  /** The numbers a recruiter should see first; headline of the printed CV. */
-  keyNumbers: Metric[]
 }
 
 export interface Achievement {
   /** Stable id, referenced by variants to select and reorder bullets. */
   id: string
   text: string
-  /** Shown on screen. Every achievement is always printed. */
+  /** Shown on screen. */
   featured?: boolean
+  /** `false` keeps it on the website only; the printed CV keeps the strongest lines. */
+  print?: boolean
 }
 
 /** A piece of work inside a role that deserves more than one bullet. */
-export interface RoleHighlight {
+/** One project told as need → what I built → result, shown on screen under the role. */
+export interface RoleStory {
   title: string
-  text: string
-  points: string[]
+  problem: string
+  action: string
+  result: string
+  /** The result in a few characters, shown large, e.g. "100+ schools". */
+  figure?: string
+  /** Optional link to where the story continues on the page, e.g. the AI section. */
+  more?: ExternalLink
 }
 
 export interface Role {
@@ -81,7 +81,7 @@ export interface Role {
   /** Omit for a current role. */
   end?: DateValue
   achievements: Achievement[]
-  highlight?: RoleHighlight
+  story?: RoleStory
   stack: string[]
   /** Earlier roles are shown in a condensed list in the career section. */
   condensed?: boolean
@@ -103,19 +103,16 @@ export interface AiWorkflow {
   adoption: string
 }
 
-/** A self-hosted, muted phone-format clip (files live in public/). */
-export interface PhoneClip {
-  /** In order of preference: MP4 for Safari, WebM for browsers without H.264. */
-  sources: { src: string; type: string }[]
-  poster: string
-  width: number
-  height: number
-  description: string
+/** The app's store icon (file lives in public/). */
+export interface AppIcon {
+  src: string
+  alt: string
 }
 
-export interface Challenge {
-  title: string
-  text: string
+/** A Foot Master Quiz challenge, told like a role story: need → what I built → result. */
+export interface Challenge extends RoleStory {
+  /** `false` keeps it on the website only. */
+  print?: boolean
 }
 
 export interface Product {
@@ -126,7 +123,7 @@ export interface Product {
   summary: string
   challenges: Challenge[]
   metrics: Metric[]
-  clip: PhoneClip
+  icon: AppIcon
   appStore: string
   googlePlay: string
   website: ExternalLink
@@ -143,6 +140,10 @@ export interface Project {
   metrics: Metric[]
   links: ExternalLink[]
   stack: string[]
+  /** A faint one-colour screenshot behind the project tile (file in public/). */
+  backdrop?: string
+  /** `false` keeps it on the website only. */
+  print?: boolean
 }
 
 export interface SkillGroup {
@@ -173,12 +174,10 @@ export interface Cv {
   reviewedAt: string
 }
 
-/** One requirement from a job offer, answered with existing evidence. */
+/** One theme of a job offer, answered with existing evidence (no scores). */
 export interface FitItem {
-  requirement: string
+  theme: string
   evidence: string
-  /** "partial" when the evidence is adjacent rather than direct. */
-  match: "strong" | "partial"
 }
 
 export interface JobFit {

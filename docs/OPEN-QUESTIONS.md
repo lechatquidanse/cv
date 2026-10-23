@@ -2,18 +2,30 @@
 
 Facts kept out of the CV, or shown conservatively, until confirmed.
 
+## Still open
+
 | Topic | Current state | To confirm |
 |---|---|---|
-| Foot Master Quiz installs | Shows "100K+" (Google Play, Oct 2026) | Total across both stores? Earlier CVs said ~150k, then 210k |
-| Foot Master Quiz rating | Not shown | Public Play rating reads 4.4; internal snapshot 4.90 (505 ratings) |
-| Monthly users | Not shown | Earlier CV said 5k monthly users; GA4 data is private |
-| ExpandNow invoicing | "around 10,000 users every week" | An earlier version said "daily" |
-| ExpandNow website | Links to kooomo.com | Does ExpandNow have its own public URL? |
-| AWS migration at ExpandNow | Not shown | Your ownership level in the migration |
-| Zeelo "buy now, pay later" | "for an English school" | A school in England, or an English-language school? |
-| Earlier role titles | WeTrack "Full-Stack Developer", IronWeb "Senior Back-End Developer" | Old CV said "Full Stack Senior Developer" and "Iron London" |
-| Skills from older CVs | GraphQL, Django, MongoDB, Kubernetes, Vue.js, React Native, Jest not shown | Add back only with a role or project to attach them to |
-| "600+ database tests" | From the pgTAP `plan()` counts in the FMQ repo (613) | Re-check with `make backend-test` before each job search |
-| 2 Actors 1 Film | Not shown | Old CV said ~20k downloads; Google Play shows 1K+ |
-| Company one-liners | Printed under each role: "SaaS e-commerce platform", "Bus transport for schools and employers", "Electronic-signature platform" | Wording you are happy to defend |
-| Lessons / setbacks per role | Not shown | A real setback and what changed after it, per role, if you want one on the PDF |
+| ExpandNow invoicing | "around 10,000 users every week" | You answered "go with that": weekly is kept. Say if you meant "daily" |
+| Heymondo motivation | Not shown | Why this role interests you, in your words |
+| Signaturit scope | One generic bullet | Which features you built, and at what scale |
+| ExpandNow spec-to-test results | Adoption only | Any defensible outcome: stories shipped, fewer reopened tickets, time saved |
+| Deux Cinq year | Period reads "Freelance" | Year of the work |
+
+## Decided (October 2026)
+
+| Topic | Decision |
+|---|---|
+| Foot Master Quiz installs | 200K+ across App Store and Google Play (owner data) |
+| Foot Master Quiz rating | 4.9★ (owner data) |
+| Monthly users | Not shown |
+| ExpandNow website | https://www.expandnow.com/ |
+| AWS migration at ExpandNow | Not shown: no ownership |
+| Zeelo instalment billing | Schools could not pay a full bus subscription up front and the company did not want a third-party pay-later provider; built recurring SEPA and UK direct-debit billing in-house on Stripe; 100+ schools signed in the first year |
+| Earlier role titles | Kept as they are |
+| Skills from older CVs | Not shown |
+| "600+ database tests" | Dropped: "2,400+ tests" already makes the point |
+| 2 Actors 1 Film | Not shown |
+| Company one-liners | Confirmed |
+| Knowledge sharing | Weekly tech meeting at Zeelo and Signaturit; at ExpandNow, mentoring on Claude Code setup |
+| Spec-to-test origin | No QA team, no end-to-end tests, test cases hard for the product owner to validate; built with other teams' feedback |

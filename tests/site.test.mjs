@@ -40,6 +40,16 @@ describe("static pages", () => {
     assert.doesNotMatch(html("generic"), /noindex/)
   })
 
+  test("the generic CV describes its person for search engines; job variants do not", () => {
+    const json = html("generic").match(/<script type="application\/ld\+json">(.*?)<\/script>/)?.[1]
+    assert.ok(json, "JSON-LD on the generic page")
+    const person = JSON.parse(json).mainEntity
+    assert.equal(person.name, "Stéphane El Manouni")
+    assert.match(person.jobTitle, /Backend/)
+    assert.ok(person.sameAs.includes("https://github.com/lechatquidanse"))
+    assert.doesNotMatch(html("heymondo"), /application\/ld\+json/)
+  })
+
   test("canonical URLs point at the deployed site", () => {
     assert.match(html("generic"), /<link rel="canonical" href="https:\/\/lechatquidanse\.github\.io\/cv\/"/)
     assert.match(html("heymondo"), /<link rel="canonical" href="https:\/\/lechatquidanse\.github\.io\/cv\/hey-mondo\/"/)
@@ -62,11 +72,12 @@ describe("static pages", () => {
     }
   })
 
-  test("the printed CV leads with key numbers, links back to the website, and shows the offer match", () => {
-    for (const name of ["generic", "heymondo"]) assert.match(html(name), /years of PHP in production/)
+  test("the printed CV tells each story as need, build and result, links back to the website, and explains the fit without a score", () => {
+    for (const name of ["generic", "heymondo"]) assert.match(html(name), /Need → what I built → result|1 · The need/)
     assert.ok(html("generic").includes('href="https://lechatquidanse.github.io/cv/"'))
     assert.ok(html("heymondo").includes('href="https://lechatquidanse.github.io/cv/hey-mondo/"'))
-    assert.match(html("heymondo").replace(/<!-- -->/g, ""), /8 of 9 requirements matched directly/)
+    assert.match(html("heymondo"), /Why my background fits/)
+    assert.doesNotMatch(html("heymondo").replace(/<!-- -->/g, ""), /requirements matched|Direct match/)
   })
 
   test("no placeholders or employer-internal details ship", () => {
@@ -198,22 +209,16 @@ describe("in a browser", () => {
     await close()
   })
 
-  test("the app video is muted, inline, pausable and plays only while on screen", async () => {
+  test("the app shows its store icon, not a video", async () => {
     const { tab, close } = await open(pages.generic.path)
-    const video = tab.locator("#projects video")
-    assert.deepEqual(await video.evaluate((v) => [v.muted, v.playsInline, v.paused]), [true, true, true])
-    await tab.evaluate(() => document.querySelector("#projects video").scrollIntoView({ block: "center" }))
-    await tab.waitForFunction(() => !document.querySelector("#projects video").paused)
-    await tab.getByRole("button", { name: "Pause video" }).click()
-    await tab.waitForFunction(() => document.querySelector("#projects video").paused)
+    assert.equal(await tab.locator("#projects video").count(), 0)
+    const icon = tab.getByRole("img", { name: "Foot Master Quiz app icon" })
+    assert.equal(await icon.evaluate((img) => img.complete && img.naturalWidth > 0), true)
     await close()
   })
 
-  test("with reduced motion the video never autoplays and the AI ticks are static", async () => {
+  test("with reduced motion the AI ticks are static", async () => {
     const { tab, close } = await open(pages.generic.path, undefined, "reduce")
-    await tab.evaluate(() => document.querySelector("#projects video").scrollIntoView({ block: "center" }))
-    await tab.waitForTimeout(500)
-    assert.equal(await tab.evaluate(() => document.querySelector("#projects video").paused), true)
     assert.equal(await tab.locator("#ai [data-armed]").count(), 0)
     const animation = await tab.evaluate(() => getComputedStyle(document.querySelector("#ai .check")).animationName)
     assert.equal(animation, "none")

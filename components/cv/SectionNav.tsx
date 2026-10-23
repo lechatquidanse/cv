@@ -59,7 +59,10 @@ export function SectionNav({ sections, pdfHref }: { sections: NavSection[]; pdfH
   return (
     <header className="sticky top-0 z-20 border-b border-rule bg-paper print:hidden">
       <div className="page flex h-[var(--bar-h)] items-center gap-3">
-        <nav ref={navRef} aria-label="Sections" className="nav-scroll -ml-2 min-w-0 flex-1 overflow-x-auto">
+        <a href="https://lechatquidanse.github.io/" className="monogram" aria-label="Home: lechatquidanse.github.io">
+          SE
+        </a>
+        <nav ref={navRef} aria-label="Sections" className="nav-scroll min-w-0 flex-1 overflow-x-auto">
           <ul className="flex gap-0.5 sm:justify-center sm:gap-1">
             {sections.map((section) => (
               <li key={section.id}>

@@ -23,7 +23,7 @@ export function Section({
       aria-labelledby={`${id}-title`}
       className="section"
     >
-      <p className="eyebrow">{eyebrow}</p>
+      <p className="eyebrow eyebrow-rule">{eyebrow}</p>
       <h2 id={`${id}-title`} className={`mt-2 ${titleClassName}`}>
         {title}
       </h2>
@@ -43,9 +43,9 @@ export function Tile({ children, className = "" }: { children: React.ReactNode; 
 /** A label/value list with hairline separators. */
 export function SpecList({ items }: { items: { label: string; value: React.ReactNode }[] }) {
   return (
-    <dl className="grid text-[13.5px] lg:grid-cols-2 lg:gap-x-8">
+    <dl className="grid text-[13.5px] lg:grid-cols-3 lg:gap-x-6">
       {items.map((item) => (
-        <div key={item.label} className="grid grid-cols-[84px_1fr] gap-2 border-t border-rule py-2">
+        <div key={item.label} className="grid grid-cols-[96px_1fr] gap-2 border-t border-rule py-2 lg:grid-cols-1 lg:gap-1">
           <dt className="pt-0.5 font-mono text-[10.5px] uppercase text-muted">{item.label}</dt>
           <dd>{item.value}</dd>
         </div>

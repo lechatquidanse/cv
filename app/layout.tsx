@@ -1,13 +1,13 @@
 import type React from "react"
 import type { Metadata, Viewport } from "next"
-import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google"
+import { IBM_Plex_Mono, IBM_Plex_Sans, Source_Serif_4 } from "next/font/google"
 import { cv } from "@/lib/cv/content"
 import { SITE_URL } from "@/lib/site"
 import "./globals.css"
 
-const display = Archivo({
+const display = Source_Serif_4({
   subsets: ["latin"],
-  axes: ["wdth"],
+  weight: ["600"],
   variable: "--font-display",
   display: "swap",
 })
@@ -27,8 +27,10 @@ const mono = IBM_Plex_Mono({
 })
 
 const role = cv.profile.headline.split(" · ")[0]
-const title = `${cv.profile.name} · ${role}`
-const description = `${role} in ${cv.profile.location}: tested, readable PHP and Node.js backends for payments, e-signature and commerce, and Claude Code workflows that make AI output predictable.`
+const city = cv.profile.location.split(",")[0]
+// Search engines show about 60 characters of a title: name, the roles people search for, the city.
+const title = `${cv.profile.name} · ${role} · ${city}`
+const description = `Senior software engineer in ${cv.profile.location}, open to remote roles in the EU. 15+ years of PHP (Symfony, Laravel), Node.js and TypeScript backends for payments, e-signature and e-commerce, and Claude Code workflows that keep AI output tested.`
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

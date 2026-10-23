@@ -14,6 +14,8 @@
     --accent: #2f6b4f;
     --accent-soft: #e6efe9;
     --accent-ink: #2f4a3c;
+    --gold: #a8823f;
+    --gold-soft: #f3ead9;
     --bar-h: 52px;
     color-scheme: light;
   }
@@ -56,19 +58,219 @@
   }
 
   .eyebrow {
-    @apply font-mono text-[10.5px] uppercase tracking-[0.04em] text-muted;
+    @apply font-mono text-[10.5px] uppercase tracking-[0.14em] text-muted;
+  }
+
+  /* A short gold hairline before a section eyebrow. */
+  .eyebrow-rule {
+    @apply flex items-center gap-2.5;
+  }
+
+  .eyebrow-rule::before {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: var(--gold);
   }
 
   .display {
     font-family: var(--font-display);
-    font-stretch: 75%;
-    font-weight: 800;
-    text-transform: uppercase;
-    line-height: 0.95;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
   }
 
   .tile {
-    @apply rounded-[10px] border border-rule bg-surface;
+    @apply rounded-xl border border-rule bg-surface;
+    box-shadow:
+      0 1px 2px rgb(28 31 29 / 0.04),
+      0 10px 24px -16px rgb(28 31 29 / 0.14);
+  }
+
+  /* A faint one-colour screenshot in the corner of a project tile. */
+  .tile-backdrop {
+    @apply pointer-events-none absolute -bottom-4 -right-6 w-[300px] max-w-none;
+    opacity: 0.13;
+    mask-image: linear-gradient(to right, transparent, #000 45%), linear-gradient(to bottom, transparent, #000 35%);
+    mask-composite: intersect;
+  }
+
+  .tile-backdrop ~ * {
+    position: relative;
+  }
+
+  /*
+   * A faint one-colour company mark in the left margin of each recent role.
+   * Narrower screens have no margin for it, and it would sit on the text.
+   */
+  .role-logo {
+    @apply pointer-events-none absolute -left-[88px] top-5 -z-10 hidden h-14 w-14 object-contain lg:block;
+    filter: grayscale(1) contrast(1.2);
+    opacity: 0.18;
+  }
+
+  /* Career timeline: one rounded bar per role on a shared year axis. */
+  .timeline-bar {
+    @apply absolute inset-y-0 cursor-pointer rounded text-white transition-[filter];
+    background: var(--accent);
+    transform-origin: left;
+  }
+
+  .timeline-bar-earlier {
+    background: var(--accent-soft);
+    color: var(--accent-ink);
+  }
+
+  .timeline-link {
+    @apply flex h-full w-full min-w-0 items-center rounded px-2 text-inherit no-underline;
+  }
+
+  .timeline-bar:hover {
+    filter: brightness(1.08);
+  }
+
+  .timeline-link:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+
+  .timeline-label {
+    @apply hidden truncate font-mono text-[10.5px] sm:block;
+  }
+
+  .timeline-tip {
+    @apply pointer-events-none absolute bottom-[calc(100%+8px)] left-0 z-10 hidden whitespace-nowrap rounded-md bg-ink px-2.5 py-1.5 text-[12px] text-paper shadow-lg;
+  }
+
+  .timeline-bar-late .timeline-tip {
+    @apply left-auto right-0;
+  }
+
+  .timeline-bar:hover .timeline-tip,
+  .timeline-link:focus-visible .timeline-tip {
+    display: block;
+  }
+
+  /* With JavaScript, below the fold: the bars grow in, left to right, once. */
+  [data-armed] .timeline-bar {
+    transform: scaleX(0);
+  }
+
+  @keyframes grow {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  [data-armed][data-in-view] .timeline-bar {
+    animation: grow 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  }
+
+  /*
+   * Need → what I built → result. Numbered dots joined by a line: down the left
+   * when stacked (phones, the app's challenges), across on wide screens.
+   */
+  .story {
+    @apply p-5;
+  }
+
+  .story-steps {
+    @apply mt-4 grid gap-5;
+  }
+
+  .story-step {
+    @apply relative pl-10;
+  }
+
+  .story-dot {
+    @apply absolute left-0 top-0 flex h-7 w-7 items-center justify-center rounded-full border-[1.5px] border-accent bg-surface font-mono text-[11px] font-medium text-accent;
+  }
+
+  .story-step:not(:last-child)::before {
+    content: "";
+    @apply absolute bottom-[-20px] left-[13px] top-8 w-px bg-rule-strong;
+  }
+
+  .story-text {
+    @apply mt-1 block text-[13.5px] leading-snug text-ink-2;
+  }
+
+  .story-step-result .story-dot {
+    @apply bg-accent text-white;
+  }
+
+  .story-step-result .story-text {
+    @apply font-medium text-ink;
+  }
+
+  @media (min-width: 1024px) {
+    .story:not(.story-stacked) .story-steps {
+      @apply grid-cols-3 gap-6;
+    }
+
+    .story:not(.story-stacked) .story-step {
+      @apply pl-0 pt-10;
+    }
+
+    .story:not(.story-stacked) .story-step:not(:last-child)::before {
+      @apply bottom-auto left-9 right-[-20px] top-[13px] h-px w-auto;
+    }
+  }
+
+  /* With JavaScript, below the fold: the steps appear one after the other, once. */
+  [data-armed] .story-step {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  @keyframes rise {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  [data-armed][data-in-view] .story-step {
+    animation: rise 0.45s ease-out forwards;
+  }
+
+  [data-armed][data-in-view] .story-step:nth-child(2) {
+    animation-delay: 0.25s;
+  }
+
+  [data-armed][data-in-view] .story-step:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+
+  /* Tags for the title line in the hero. */
+  .tag {
+    @apply rounded-full border border-rule-strong px-2.5 py-0.5 text-[13px] font-medium text-ink-2;
+  }
+
+  .tag-strong {
+    @apply border-ink bg-ink text-paper;
+  }
+
+  /* The app's icon follows the site's quiet images, but stays clearly visible. */
+  .app-icon-soft {
+    opacity: 0.85;
+    filter: saturate(0.75);
+    transition:
+      opacity 0.3s,
+      filter 0.3s;
+  }
+
+  .app-icon-soft:hover {
+    opacity: 1;
+    filter: none;
+  }
+
+  /* The app icon, framed like a store tile. */
+  .app-icon {
+    @apply rounded-[22%] border border-rule;
+    box-shadow:
+      0 1px 2px rgb(28 31 29 / 0.08),
+      0 18px 36px -18px rgb(28 31 29 / 0.45);
   }
 
   .link {
@@ -81,6 +283,12 @@
 
   .nav-chip {
     @apply whitespace-nowrap rounded-full px-2 py-1 font-mono text-[11px] tracking-[0.02em] sm:px-2.5 sm:tracking-[0.04em] text-muted no-underline transition-colors hover:text-ink;
+  }
+
+  .monogram {
+    @apply flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-mono text-[11px] font-medium no-underline;
+    background: linear-gradient(135deg, #c9a15e, #ecd6a8);
+    color: #2a1f0b;
   }
 
   .nav-chip[aria-current="location"] {
@@ -144,7 +352,7 @@
 
 @page {
   size: A4;
-  margin: 12mm 13mm;
+  margin: 16mm 18mm;
 }
 
 @media print {
@@ -165,11 +373,6 @@
     padding: 0;
   }
 
-  /* Two A4 pages: each fills one sheet, so page 2 always starts on a new sheet. */
-  .print-page + .print-page {
-    break-before: page;
-  }
-
   li,
   article {
     break-inside: avoid;
@@ -177,5 +380,10 @@
 
   a {
     text-decoration: none;
+  }
+
+  .tile,
+  .app-icon {
+    box-shadow: none;
   }
 }

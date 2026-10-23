@@ -1,10 +1,13 @@
 import type React from "react"
-import { formatMonth, formatPeriod } from "@/lib/cv/format"
+import { formatMonth, formatPeriod, staticFile } from "@/lib/cv/format"
+import { roleLogos } from "@/lib/cv/logos"
 import type { ResolvedCv } from "@/lib/cv/resolve"
-import type { Actor, JobFit, Pillar, Role, SectionId } from "@/lib/cv/types"
+import type { Actor, JobFit, Role, RoleStory, SectionId } from "@/lib/cv/types"
 import { Section, SpecList, Tile } from "./Card"
-import { AppleIcon, CheckIcon, LinesIcon, PersonIcon, PlayStoreIcon } from "./icons"
-import { PhoneVideo } from "./PhoneVideo"
+import { withBoldNumbers } from "./BoldNumbers"
+import { CareerTimeline } from "./CareerTimeline"
+import { CountUp } from "./CountUp"
+import { AppleIcon, PlayStoreIcon } from "./icons"
 import { TickOnView } from "./TickOnView"
 
 interface SectionProps {
@@ -13,12 +16,6 @@ interface SectionProps {
 
 const intro = (cv: ResolvedCv, id: SectionId) => cv.variant.sectionIntros?.[id]
 
-const pillarIcons: Record<Pillar["id"], React.ReactNode> = {
-  tested: <CheckIcon />,
-  readable: <LinesIcon />,
-  users: <PersonIcon />,
-}
-
 const buttonPrimary =
   "flex items-center justify-center gap-2 rounded-[10px] bg-ink px-4 py-3 text-[15px] font-semibold text-paper no-underline transition-opacity hover:opacity-90"
 const buttonSecondary =
@@ -26,8 +23,10 @@ const buttonSecondary =
 
 export function Hero({ cv }: SectionProps) {
   const { profile } = cv
-  const [headlineMain, ...headlineRest] = profile.headline.split(" · ")
-  const [firstName, ...lastNames] = profile.name.split(" ")
+  // The second half of the value line ("&& …" or "— …") is set in the accent colour.
+  const [valueLead, joiner, valueTail] = profile.valueLine.split(/ (&&|—) /)
+  const [role, ...tags] = profile.headline.split(" · ")
+  const company = cv.variant.fit?.company
   return (
     <section id="top" aria-labelledby="top-title" className="pb-12 pt-8 lg:pt-12">
       <p className="inline-flex items-center gap-2 rounded-full bg-accent-soft py-1 pl-2.5 pr-3 text-[12.5px] font-medium text-accent">
@@ -35,129 +34,144 @@ export function Hero({ cv }: SectionProps) {
         {profile.status}
       </p>
 
-      <h1 id="top-title" className="display mt-4 text-[56px] leading-[0.92] lg:text-[80px]">
-        {firstName}
-        <br /> {lastNames.join(" ")}
+      {/* The name stays clear but no larger than the value it brings. */}
+      <h1 id="top-title" className="mt-5">
+        <span className="display block text-[30px] lg:text-[38px]">{profile.name}</span>
+        <span className="mt-3 flex flex-wrap gap-1.5">
+          <span className="tag tag-strong">{role}</span>
+          {tags.map((tag) => (
+            <span key={tag} className="tag">
+              <span className="sr-only"> · </span>
+              {tag}
+            </span>
+          ))}
+        </span>
       </h1>
-      <p className="mt-3.5 text-[17px] font-semibold lg:text-[19px]">
-        {headlineMain}
-        {headlineRest.length > 0 && <span className="font-normal text-muted"> · {headlineRest.join(" · ")}</span>}
+
+      <p className="display mt-6 max-w-[26ch] text-[30px] leading-[1.12] lg:text-[40px]">
+        {valueLead}
+        {valueTail && (
+          <span className="text-accent">
+            {" "}
+            {joiner} {valueTail}
+          </span>
+        )}
       </p>
 
-      <p className="mt-3 max-w-[60ch] text-[15.5px] leading-relaxed text-ink-2 lg:text-[17px]">
+      <p className="mt-4 max-w-[60ch] text-[15.5px] leading-relaxed text-ink-2 lg:text-[17px]">
         {profile.pitch}
       </p>
 
       <div className="mt-6 flex flex-wrap gap-2">
         <a href={cv.pdfHref} className={buttonPrimary}>
-          Download CV
+          {company ? `Download my CV for ${company}` : "Download CV"}
         </a>
         <a href={`mailto:${profile.email}`} className={buttonSecondary}>
           Email me
         </a>
       </div>
 
-      <ul aria-label="How I work" className="mt-8 grid grid-cols-3 gap-2 lg:gap-3">
-        {profile.pillars.map((pillar) => (
-          <li key={pillar.id} className="tile px-2.5 py-3 lg:px-4 lg:py-4">
-            <span className="text-accent">{pillarIcons[pillar.id]}</span>
-            <span className="block">
-              <span className="mt-1.5 block text-sm font-semibold lg:text-base">{pillar.title}</span>
-              <span className="mt-0.5 block text-[11.5px] leading-snug text-muted lg:text-[13px]">
-                {pillar.caption}
-              </span>
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-6">
+      <div className="mt-8">
         <SpecList items={profile.specs} />
       </div>
     </section>
   )
 }
 
-const matchLabel = { strong: "Direct match", partial: "Partial match" }
-
 export function FitSection({ fit }: { fit: JobFit }) {
   return (
     <Section
       id="fit"
-      eyebrow={`For ${fit.company}`}
-      title={
-        <>
-          Your offer, <span className="text-accent">my evidence</span>
-        </>
-      }
-      titleClassName="display text-[34px] lg:text-[44px]"
+      eyebrow={`For ${fit.company} · ${fit.role}`}
+      title="Why my background fits"
+      titleClassName="display text-[30px] lg:text-[40px]"
     >
       <p className="mt-2 text-sm text-ink-2">
-        {fit.role} at {fit.company}.{" "}
+        The main themes of the offer, and where I have done that work.{" "}
         <a href={fit.offerUrl} className="link">
           Read the offer
         </a>
       </p>
-      <ul className="mt-4 grid border-y border-rule text-[13.5px] lg:grid-cols-2 lg:gap-x-8">
+      <dl className="mt-4 border-y border-rule text-[14px]">
         {fit.items.map((item) => (
-          <li key={item.requirement} className="grid grid-cols-[22px_1fr] gap-2 border-b border-rule py-2 last:border-b-0">
-            <span
-              className={`mt-0.5 flex h-[18px] w-[18px] items-center justify-center rounded-full ${
-                item.match === "strong" ? "bg-accent text-white" : "border border-accent text-accent"
-              }`}
-            >
-              <CheckIcon size={11} />
-              <span className="sr-only">{matchLabel[item.match]}</span>
-            </span>
-            <span>
-              <span className="block font-semibold">{item.requirement}</span>
-              <span className="block text-ink-2">{item.evidence}</span>
-            </span>
-          </li>
+          <div key={item.theme} className="grid gap-1 border-b border-rule py-2.5 last:border-b-0 sm:grid-cols-[190px_1fr] sm:gap-4">
+            <dt className="font-semibold">{item.theme}</dt>
+            <dd className="text-ink-2">{item.evidence}</dd>
+          </div>
         ))}
-      </ul>
+      </dl>
     </Section>
   )
 }
 
 function RoleEntry({ role }: { role: Role }) {
+  const logo = roleLogos[role.id]
   return (
-    <article className="border-t border-rule py-5 first:border-t-0 first:pt-0">
+    <article id={`role-${role.id}`} className="relative isolate border-t border-rule py-5 first:border-t-0 first:pt-0">
+      {logo && (
+        // eslint-disable-next-line @next/next/no-img-element -- static export, decorative
+        <img src={staticFile(logo)} alt="" aria-hidden="true" className="role-logo" />
+      )}
       <div className="flex flex-wrap items-baseline justify-between gap-x-3">
         <h3 className="text-[16px] font-semibold lg:text-[17px]">
-          {role.title} · {role.company}
-          {role.companyNote && <span className="font-normal text-muted"> ({role.companyNote})</span>}
+          {role.company} <span className="font-normal text-ink-2">· {role.title}</span>
         </h3>
         <p className="font-mono text-[11px] text-muted">
           {formatPeriod(role.start, role.end)} · {role.location}
         </p>
       </div>
+      {role.context && (
+        <p className="mt-0.5 text-[13px] text-muted">
+          {role.context}
+          {role.companyNote && ` · ${role.companyNote}`}
+        </p>
+      )}
       <ul className="mt-2 max-w-[68ch] list-disc space-y-1.5 pl-4 text-[14.5px] leading-snug text-ink-2 marker:text-rule-strong">
         {role.achievements.filter((a) => a.featured).map((a) => (
-          <li key={a.id}>
-            {a.text}
-          </li>
+          <li key={a.id}>{withBoldNumbers(a.text)}</li>
         ))}
       </ul>
-      {role.highlight && (
-        <div className="tile mt-4 p-4">
-          <h4 className="text-[14px] font-semibold">{role.highlight.title}</h4>
-          <p className="mt-1 text-[13.5px] text-ink-2">{role.highlight.text}</p>
-          <ol className="mt-3 space-y-1.5 text-[13.5px] text-ink-2">
-            {role.highlight.points.map((point, i) => (
-              <li key={point} className="grid grid-cols-[22px_1fr] gap-2">
-                <span className="font-mono text-[11px] text-accent">{String(i + 1).padStart(2, "0")}</span>
-                <span>{point}</span>
-              </li>
-            ))}
-          </ol>
-          <a href="#ai" className="link mt-3 inline-block text-[13.5px] font-medium text-accent">
-            See how it works in the AI section ↓
-          </a>
-        </div>
-      )}
+      {role.story && <StoryFlow story={role.story} />}
       <p className="mt-2 font-mono text-[11px] text-muted">{role.stack.join(" · ")}</p>
     </article>
+  )
+}
+
+const storySteps = [
+  { key: "problem", label: "The need" },
+  { key: "action", label: "What I built" },
+  { key: "result", label: "Result" },
+] as const
+
+/**
+ * A project as need → what I built → result: three numbered steps joined by a line,
+ * the result highlighted. Side by side on wide screens unless `stacked`; the steps
+ * appear in turn the first time the block scrolls into view.
+ */
+function StoryFlow({ story, stacked = false }: { story: RoleStory; stacked?: boolean }) {
+  return (
+    <TickOnView className={`story tile h-full ${stacked ? "story-stacked" : "mt-4"}`}>
+      <h4 className="text-[15px] font-semibold">{story.title}</h4>
+      <ol className="story-steps">
+        {storySteps.map((step, i) => (
+          <li key={step.key} className={`story-step ${step.key === "result" ? "story-step-result" : ""}`}>
+            <span aria-hidden="true" className="story-dot">
+              {step.key === "result" ? "✓" : i + 1}
+            </span>
+            <span className="eyebrow block">{step.label}</span>
+            {step.key === "result" && story.figure && (
+              <span className="display mt-1.5 block text-[24px] leading-none text-accent">{story.figure}</span>
+            )}
+            <span className="story-text">{withBoldNumbers(story[step.key])}</span>
+          </li>
+        ))}
+      </ol>
+      {story.more && (
+        <a href={story.more.href} className="link mt-4 inline-block text-[13.5px] font-medium text-accent">
+          {story.more.label} ↓
+        </a>
+      )}
+    </TickOnView>
   )
 }
 
@@ -169,14 +183,15 @@ export function ExperienceSection({ cv }: SectionProps) {
     <Section
       id="experience"
       eyebrow={`${cv.yearsOfExperience} years in production`}
-      title="Experiences"
+      title="Experience"
       titleClassName="display text-[38px] lg:text-[48px]"
       intro={intro(cv, "experience")}
     >
       <p className="mt-3 font-mono text-[11.5px] text-muted">
         {cities.join(" → ")} · working languages: {cv.profile.workingLanguages}
       </p>
-      <div className="mt-6">
+      <CareerTimeline roles={[...cv.roles, ...cv.earlierRoles]} />
+      <div className="mt-8 border-t border-rule pt-6">
         {cv.roles.map((role) => (
           <RoleEntry key={role.id} role={role} />
         ))}
@@ -184,7 +199,7 @@ export function ExperienceSection({ cv }: SectionProps) {
       <h3 className="eyebrow mt-4 border-t border-rule pt-5">Earlier, across Europe</h3>
       <ul className="mt-2 text-[14px]">
         {cv.earlierRoles.map((role) => (
-          <li key={role.id} className="flex flex-wrap items-baseline justify-between gap-x-3 py-1.5">
+          <li key={role.id} id={`role-${role.id}`} className="flex flex-wrap items-baseline justify-between gap-x-3 py-1.5">
             <span>
               <span className="font-semibold">
                 {role.title} · {role.company}
@@ -222,7 +237,7 @@ export function AiSection({ cv }: SectionProps) {
   return (
     <Section
       id="ai"
-      eyebrow="AI, predictably"
+      eyebrow="Spec-to-test workflow · built at ExpandNow"
       title={
         <>
           {aiWorkflow.headline[0]} <span className="text-accent">{aiWorkflow.headline[1]}</span>
@@ -267,7 +282,7 @@ export function AiSection({ cv }: SectionProps) {
 /** Foot Master Quiz, the featured project. */
 function ProductBlock({ cv }: SectionProps) {
   const { product } = cv
-  const downloads = product.metrics[product.metrics.length - 1]
+  const downloads = product.metrics.find((metric) => metric.label === "downloads") ?? product.metrics[0]
   return (
     <article className="mt-6">
       <p className="text-[13px] text-muted">
@@ -277,14 +292,25 @@ function ProductBlock({ cv }: SectionProps) {
         {product.headline[0]} <span className="text-accent">{product.headline[1]}</span>
       </h3>
 
-      <div className="mt-5 grid gap-6 lg:grid-cols-[200px_1fr] lg:gap-10">
-        <div>
-          <PhoneVideo clip={product.clip} />
+      <div className="mt-5 grid gap-6 lg:grid-cols-[160px_1fr] lg:gap-10">
+        <div className="flex items-start gap-4 lg:flex-col">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static export, already sized */}
+          <img
+            src={staticFile(product.icon.src)}
+            alt={product.icon.alt}
+            width={128}
+            height={128}
+            className="app-icon app-icon-soft h-24 w-24 lg:h-32 lg:w-32"
+          />
+          <p className="text-[13px] leading-snug text-muted lg:mt-1">
+            <span className="block font-semibold text-ink">{product.name}</span>
+            iOS and Android
+          </p>
         </div>
         <div>
           <p className="max-w-[60ch] text-[15px] leading-relaxed text-ink-2">{product.summary}</p>
 
-          <dl className="mt-4 grid grid-cols-4 gap-1.5">
+          <dl className="mt-4 grid grid-cols-3 gap-1.5 sm:grid-cols-5">
             {product.metrics.map((metric) => {
               const highlight = metric === downloads
               return (
@@ -297,15 +323,15 @@ function ProductBlock({ cv }: SectionProps) {
                   <dt className={`mt-0.5 text-[10.5px] leading-tight lg:text-xs ${highlight ? "text-accent-ink" : "text-muted"}`}>
                     {metric.label}
                   </dt>
-                  <dd className={`display text-xl leading-none lg:text-[28px] ${highlight ? "text-accent" : ""}`}>
-                    {metric.value}
+                  <dd className={`display text-xl leading-none tabular-nums lg:text-[26px] ${highlight ? "text-accent" : ""}`}>
+                    <CountUp value={metric.value} />
                   </dd>
                 </div>
               )
             })}
           </dl>
           <p className="mt-1 text-[11px] text-muted">
-            Downloads: {downloads.source}, {formatMonth(downloads.asOf)}.
+            Downloads and rating: {downloads.source}, {formatMonth(downloads.asOf)}.
           </p>
 
           <div className="mt-5 grid max-w-sm grid-cols-2 gap-2">
@@ -331,11 +357,10 @@ function ProductBlock({ cv }: SectionProps) {
       </div>
 
       <h3 className="eyebrow mt-8">Challenges I solved</h3>
-      <ul className="mt-3 grid gap-2 lg:grid-cols-2">
+      <ul className="mt-3 grid gap-3 lg:grid-cols-2">
         {product.challenges.map((challenge) => (
-          <li key={challenge.title} className="tile p-4">
-            <h4 className="text-[14.5px] font-semibold">{challenge.title}</h4>
-            <p className="mt-1 text-[13.5px] leading-snug text-ink-2">{challenge.text}</p>
+          <li key={challenge.title}>
+            <StoryFlow story={challenge} stacked />
           </li>
         ))}
       </ul>
@@ -347,7 +372,7 @@ export function ProjectsSection({ cv }: SectionProps) {
   return (
     <Section
       id="projects"
-      eyebrow="My own product and side projects"
+      eyebrow="My own app and side projects"
       title="Projects"
       titleClassName="display text-[38px] lg:text-[48px]"
       intro={intro(cv, "projects")}
@@ -356,7 +381,11 @@ export function ProjectsSection({ cv }: SectionProps) {
       <h3 className="eyebrow mt-10 border-t border-rule pt-6">Side projects</h3>
       <div className="mt-3 grid gap-3 lg:grid-cols-[3fr_2fr]">
         {cv.projects.map((project) => (
-          <Tile key={project.id} className="p-4">
+          <Tile key={project.id} className="relative overflow-hidden p-4">
+            {project.backdrop && (
+              // eslint-disable-next-line @next/next/no-img-element -- static export, decorative
+              <img src={staticFile(project.backdrop)} alt="" aria-hidden="true" className="tile-backdrop" />
+            )}
             <p className="flex flex-wrap items-baseline justify-between gap-x-3">
               <span className="text-[15px] font-semibold">
                 {project.name} <span className="font-normal text-muted">· {project.kind}</span>

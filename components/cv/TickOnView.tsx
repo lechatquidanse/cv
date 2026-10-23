@@ -4,9 +4,9 @@ import type React from "react"
 import { useEffect, useRef } from "react"
 
 /**
- * Plays the AI steps' ticks once, in order, when the list scrolls into view.
- * Server-rendered ticks are already checked, so without JavaScript, with reduced
- * motion, or in print the list simply shows every step done.
+ * Arms a one-off CSS animation (the AI steps' ticks, the timeline bars) and plays it
+ * when the block scrolls into view. The server renders the finished state, so without
+ * JavaScript, with reduced motion, or in print the block is simply shown complete.
  */
 export function TickOnView({ children, className }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null)

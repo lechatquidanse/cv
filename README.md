@@ -13,9 +13,9 @@ downloadable PDF; both layouts read the same content, so they never drift apart.
 | Command | What it does |
 |---|---|
 | `npm run dev` | Local preview at http://localhost:3000 |
-| `npm run build` | Static export to `out/`; fails on invalid CV content |
-| `npm run pdf` | Prints every variant to an A4 PDF inside `out/` (needs a build first) |
-| `npm test` | Checks the export: pages, links, PDFs (2 A4 pages), no leaks, real-device widths, navigation, video |
+| `npm run build` | Static export to `out/` plus every PDF; fails on invalid CV content |
+| `npm run pdf` | Re-prints the PDFs only (runs automatically after every build) |
+| `npm test` | Checks the export: pages, links, PDFs (2 A4 pages), no leaks, real-device widths, navigation, app icon |
 | `npm run check` | All of the above, in order |
 | `npm run serve` | Serves `out/` at http://127.0.0.1:4173/cv/, like GitHub Pages |
 
@@ -30,12 +30,15 @@ All facts live in **`lib/cv/content.ts`**; components never hold CV text.
 - Write only what you could defend in an interview. Unconfirmed facts go to `docs/OPEN-QUESTIONS.md`.
 - Every metric has a `source` and an `asOf` month. Re-check them before each job search.
 - Nothing internal to an employer: no ticket keys, internal URLs, client ids or screenshots.
-- An achievement with `featured: true` shows on screen; every achievement is printed.
-- `profile.keyNumbers` is the row of five numbers at the top of the PDF; numbers inside any
+- An achievement with `featured: true` shows on screen. The PDF is the short version: an
+  achievement, app challenge or project with `print: false` stays on the website only, and
+  only the first five skill groups are printed. The AI workflow section is not printed; its
+  ExpandNow bullet is.
+- Numbers inside any
   printed text are set in bold automatically.
 - Both PDFs must stay at exactly 2 A4 pages: `npm test` fails otherwise, so shorten text
   rather than adding a third page.
-- The app video lives in `public/media/` (MP4 for Safari, WebM for other browsers, plus a poster).
+- The app icon lives in `public/media/fmq-icon.png` (256 px, from the iOS app icon).
 
 ## A CV for a specific job offer
 
@@ -50,15 +53,17 @@ Each offer gets its own page and PDF, e.g. `/cv/hey-mondo/`. To add one, append 
   roles: { expandnow: { order: [...], featured: [...] } },   // reorder / re-feature bullets
   sectionIntros: { experience: "…", ai: "…", app: "…" },   // one line under each section title
   skillsFirst: ["Backend", "Quality"],
-  fit: { company: "Acme", role: "…", offerUrl: "…", items: [{ requirement, evidence, match }] },
+  fit: { company: "Acme", role: "…", offerUrl: "…", items: [{ theme, evidence }] },
   pdfFileName: "Stephane-El-Manouni-CV-Acme.pdf",
   indexable: false,                   // job pages are shared by link, not indexed
 }
 ```
 
-The `fit` list becomes a "Your offer, my evidence" section after the intro, and prints on
-page 1 right under the key numbers (the generic PDF shows the AI workflow there instead). `sectionIntros` tie each section to the offer. Mark a requirement `partial` when the evidence is adjacent rather than direct.
-Never add a requirement you cannot back up; leave it out instead.
+The `fit` list becomes a "Why my background fits" section after the intro, and prints on
+page 1 right under the key numbers. Use the
+offer's 4–6 main themes and answer each with existing evidence; no scores or match badges.
+`sectionIntros` tie each section to the offer. On a job page the main button reads
+"Download my CV for <company>".
 
 Suggested workflow for a new offer: paste the offer into Claude Code and ask it to propose a
 variant from `content.ts` only, then review every `evidence` line yourself.
