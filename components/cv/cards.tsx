@@ -23,9 +23,8 @@ const buttonSecondary =
 
 export function Hero({ cv }: SectionProps) {
   const { profile } = cv
-  // The second half of the value line ("&& …" or "— …") is set in the accent colour.
-  const [valueLead, joiner, valueTail] = profile.valueLine.split(/ (&&|—) /)
-  const [role, ...tags] = profile.headline.split(" · ")
+  // The second half of the value line ("& …" or "— …") is set in the accent colour.
+  const [valueLead, joiner, valueTail] = profile.valueLine.split(/ (&|—) /)
   const company = cv.variant.fit?.company
   return (
     <section id="top" aria-labelledby="top-title" className="pb-12 pt-8 lg:pt-12">
@@ -35,20 +34,12 @@ export function Hero({ cv }: SectionProps) {
       </p>
 
       {/* The name stays clear but no larger than the value it brings. */}
-      <h1 id="top-title" className="mt-5">
-        <span className="display block text-[30px] lg:text-[38px]">{profile.name}</span>
-        <span className="mt-3 flex flex-wrap gap-1.5">
-          <span className="tag tag-strong">{role}</span>
-          {tags.map((tag) => (
-            <span key={tag} className="tag">
-              <span className="sr-only"> · </span>
-              {tag}
-            </span>
-          ))}
-        </span>
+      <h1 id="top-title" className="display mt-5 text-[30px] lg:text-[38px]">
+        {profile.name}
+        <span className="sr-only">, {profile.headline}</span>
       </h1>
 
-      <p className="display mt-6 max-w-[26ch] text-[30px] leading-[1.12] lg:text-[40px]">
+      <p className="display mt-5 max-w-[30ch] text-[38px] leading-[1.06] lg:text-[52px]">
         {valueLead}
         {valueTail && (
           <span className="text-accent">
@@ -74,6 +65,12 @@ export function Hero({ cv }: SectionProps) {
       <div className="mt-8">
         <SpecList items={profile.specs} />
       </div>
+
+      {/* Invites the reader down to the experience, the heart of the CV. */}
+      <a href="#experience" className="scroll-cue">
+        {cv.yearsOfExperience} years <span aria-hidden="true">↓</span>
+        <span className="sr-only"> of experience</span>
+      </a>
     </section>
   )
 }
@@ -182,7 +179,7 @@ export function ExperienceSection({ cv }: SectionProps) {
   return (
     <Section
       id="experience"
-      eyebrow={`${cv.yearsOfExperience} years in production`}
+      eyebrow={`${cv.yearsOfExperience} years`}
       title="Experience"
       titleClassName="display text-[38px] lg:text-[48px]"
       intro={intro(cv, "experience")}

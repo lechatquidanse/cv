@@ -3,7 +3,7 @@
 Live at **https://lechatquidanse.github.io/cv/**. A static Next.js export on GitHub Pages.
 
 On screen the CV is one vertical page with a sticky bar (section links that follow the
-reader, and the PDF). In print the page switches to its own 2-page A4 résumé
+reader, and the PDF). In print the page switches to its own one-page A4 résumé
 (`components/cv/PrintCv.tsx`), built for a recruiter's first read: key numbers first, every
 role with its results in bold, and a link back to the website for the rest. That print is the
 downloadable PDF; both layouts read the same content, so they never drift apart.
@@ -15,7 +15,7 @@ downloadable PDF; both layouts read the same content, so they never drift apart.
 | `npm run dev` | Local preview at http://localhost:3000 |
 | `npm run build` | Static export to `out/` plus every PDF; fails on invalid CV content |
 | `npm run pdf` | Re-prints the PDFs only (runs automatically after every build) |
-| `npm test` | Checks the export: pages, links, PDFs (2 A4 pages), no leaks, real-device widths, navigation, app icon |
+| `npm test` | Checks the export: pages, links, PDFs (one A4 page; two for a job CV), no leaks, real-device widths, navigation, app icon |
 | `npm run check` | All of the above, in order |
 | `npm run serve` | Serves `out/` at http://127.0.0.1:4173/cv/, like GitHub Pages |
 
@@ -36,8 +36,9 @@ All facts live in **`lib/cv/content.ts`**; components never hold CV text.
   ExpandNow bullet is.
 - Numbers inside any
   printed text are set in bold automatically.
-- Both PDFs must stay at exactly 2 A4 pages: `npm test` fails otherwise, so shorten text
-  rather than adding a third page.
+- The generic PDF must fit one A4 page, a job PDF two: `npm test` fails otherwise, so shorten
+  text rather than shrinking it. Each role prints its story box and its first 2 printable
+  bullets; mark a bullet `print: false` to keep it on the website only.
 - The app icon lives in `public/media/fmq-icon.png` (256 px, from the iOS app icon).
 
 ## A CV for a specific job offer

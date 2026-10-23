@@ -15,7 +15,7 @@ export const cv: Cv = {
   profile: {
     name: "Stéphane El Manouni",
     headline: "Senior Backend Engineer · PHP · Symfony · Laravel · AI-assisted engineering",
-    valueLine: "I build software that works better for users && easier to evolve.",
+    valueLine: "I build software that works better for users & easier to evolve.",
     status: "Available · Barcelona or remote (EU)",
     pitch:
       "I combine product thinking, clean and robust engineering, and pragmatic use of AI to deliver software that solves real problems without creating unnecessary complexity.",
@@ -28,9 +28,9 @@ export const cv: Cv = {
     careerStart: 2011,
     workingLanguages: "French, English and Spanish",
     specs: [
-      { label: "Core", value: "PHP, Symfony, Laravel, Node.js, TypeScript" },
-      { label: "Architecture", value: "DDD, CQRS, event sourcing, hexagonal" },
-      { label: "Work", value: "Jira, agile, GitHub workflow, CI/CD, Claude Code / Claude Design" },
+      { label: "Core", value: "PHP, Symfony, Laravel, Node.js, TypeScript · MySQL, PostgreSQL, Redis" },
+      { label: "Architecture", value: "DDD, CQRS, event sourcing, hexagonal, microservices · Docker, AWS" },
+      { label: "Work", value: "Jira, agile, GitHub workflow, CI/CD, Playwright, Claude Code / Claude Design" },
     ],
   },
 
@@ -60,6 +60,8 @@ export const cv: Cv = {
           id: "e2e-workflow",
           text: "With no QA team and no end-to-end tests, introduced a spec-to-test workflow with Claude Code, adopted by 4 developers and the product owner.",
           featured: true,
+          // The printed story box below tells this one.
+          print: false,
         },
         {
           id: "testing",
@@ -96,6 +98,8 @@ export const cv: Cv = {
           id: "bnpl",
           text: "Built in-house instalment billing for schools with SEPA and UK direct debits through Stripe; 100+ schools signed in the first year.",
           featured: true,
+          // The printed story box below tells this one.
+          print: false,
         },
         {
           id: "event-sourcing",

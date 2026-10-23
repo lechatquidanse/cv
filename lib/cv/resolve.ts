@@ -18,9 +18,10 @@ export interface ResolvedCv extends Omit<Cv, "profile" | "roles" | "skills"> {
   path: string
 }
 
-// Counted to the content review date, not the build date, so the number only
-// changes when someone has re-read the content.
-const yearsOfExperience = Number(cv.reviewedAt.slice(0, 4)) - cv.profile.careerStart
+// Calendar years worked, both ends included (2011 to 2026 is 16), counted to the
+// content review date rather than the build date, so the number only changes when
+// someone has re-read the content.
+const yearsOfExperience = Number(cv.reviewedAt.slice(0, 4)) - cv.profile.careerStart + 1
 
 function withYears(text: string): string {
   return text.replace("{years}", String(yearsOfExperience))

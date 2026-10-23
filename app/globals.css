@@ -242,13 +242,29 @@
     animation-delay: 0.5s;
   }
 
-  /* Tags for the title line in the hero. */
-  .tag {
-    @apply rounded-full border border-rule-strong px-2.5 py-0.5 text-[13px] font-medium text-ink-2;
+  /* "16 years ↓" at the foot of the hero: a quiet invitation to scroll. */
+  .scroll-cue {
+    @apply mt-10 inline-flex items-center gap-2.5 font-mono text-[12px] uppercase tracking-[0.14em] text-muted no-underline transition-colors hover:text-accent;
   }
 
-  .tag-strong {
-    @apply border-ink bg-ink text-paper;
+  .scroll-cue::before {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-cue span[aria-hidden] {
+      display: inline-block;
+      animation: nudge 1.8s ease-in-out infinite;
+    }
+  }
+
+  @keyframes nudge {
+    50% {
+      transform: translateY(4px);
+    }
   }
 
   /* The app's icon follows the site's quiet images, but stays clearly visible. */
@@ -352,7 +368,7 @@
 
 @page {
   size: A4;
-  margin: 16mm 18mm;
+  margin: 12mm 18mm;
 }
 
 @media print {

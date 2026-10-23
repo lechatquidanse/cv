@@ -25,7 +25,7 @@ export const jobVariants: Variant[] = [
       },
     },
     sectionIntros: {
-      experience: "15 years of PHP; the last two on Laravel with MySQL, integrating payment and logistics APIs.",
+      experience: "16 years of PHP; the last two on Laravel with MySQL, integrating payment and logistics APIs.",
       ai: "AI applied to backend work: specs and tests keep the output predictable.",
       projects: "A B2C product I run end to end, with an API-only backend and safe releases.",
     },
@@ -37,7 +37,7 @@ export const jobVariants: Variant[] = [
       items: [
         {
           theme: "Laravel and MySQL",
-          evidence: "15 years of PHP, from Silex to Symfony and Laravel; Laravel and MySQL at ExpandNow (2024 – 2026)",
+          evidence: "16 years of PHP, from Silex to Symfony and Laravel; Laravel and MySQL at ExpandNow (2024 – 2026)",
         },
         {
           theme: "APIs and integrations",

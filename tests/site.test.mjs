@@ -10,8 +10,9 @@ import { startServer } from "../scripts/serve.mjs"
 
 const OUT = "out"
 const pages = {
-  generic: { path: "/cv/", file: "index.html", pdf: "Stephane-El-Manouni-CV.pdf" },
-  heymondo: { path: "/cv/hey-mondo/", file: "hey-mondo/index.html", pdf: "hey-mondo/Stephane-El-Manouni-CV-Heymondo.pdf" },
+  // The generic CV is a one-page résumé; a job CV adds its fit block and may take two.
+  generic: { path: "/cv/", file: "index.html", pdf: "Stephane-El-Manouni-CV.pdf", maxPages: 1 },
+  heymondo: { path: "/cv/hey-mondo/", file: "hey-mondo/index.html", pdf: "hey-mondo/Stephane-El-Manouni-CV-Heymondo.pdf", maxPages: 2 },
 }
 const html = (name) => readFileSync(join(OUT, pages[name].file), "utf8")
 const sectionIds = (name) => [...html(name).matchAll(/<section id="([^"]+)"/g)].map((m) => m[1])
@@ -91,10 +92,11 @@ describe("static pages", () => {
 
 describe("PDFs", () => {
   for (const [name, page] of Object.entries(pages)) {
-    test(`${name}: an A4 PDF of exactly 2 pages is linked and generated`, () => {
+    test(`${name}: an A4 PDF of at most ${page.maxPages} page(s) is linked and generated`, () => {
       assert.ok(html(name).includes(`href="/cv/${page.pdf}"`), "page links its PDF")
       const pdf = readFileSync(join(OUT, page.pdf), "latin1")
-      assert.equal(pdf.match(/\/Type\s*\/Page[^s]/g)?.length, 2)
+      const count = pdf.match(/\/Type\s*\/Page[^s]/g)?.length ?? 0
+      assert.ok(count >= 1 && count <= page.maxPages, `${count} pages`)
       const [, width, height] = pdf.match(/\/MediaBox\s*\[0 0 ([\d.]+) ([\d.]+)\]/) ?? []
       assert.ok(Math.abs(width - 595.28) < 1 && Math.abs(height - 841.89) < 1, `A4 media box, got ${width}×${height}`)
     })
