@@ -152,10 +152,6 @@
     --paper: #ffffff;
   }
 
-  html {
-    font-size: 12px;
-  }
-
   [data-print-only] {
     display: revert;
   }
@@ -164,43 +160,19 @@
     display: none !important;
   }
 
-  /* Sections become one document; FIT (job variants) moves to the end. */
-  main {
-    display: flex;
-    flex-direction: column;
-  }
-
   .page {
     max-width: none;
     padding: 0;
   }
 
-  .section {
-    order: var(--print-order, 0);
-    border: 0;
-    padding: 6px 0 0;
-  }
-
-  .section[data-print-break] {
+  /* Two A4 pages: each fills one sheet, so page 2 always starts on a new sheet. */
+  .print-page + .print-page {
     break-before: page;
-    padding-top: 0;
   }
 
-  .check {
-    animation: none !important;
-    background: var(--accent) !important;
-    border-color: var(--accent) !important;
-    color: #fff !important;
-  }
-
-  .tile,
-  li {
+  li,
+  article {
     break-inside: avoid;
-  }
-
-  h2,
-  h3 {
-    break-after: avoid;
   }
 
   a {

@@ -22,10 +22,7 @@ export interface Metric {
 export interface Pillar {
   id: "tested" | "readable" | "users"
   title: string
-  /** Short line for the screen. */
   caption: string
-  /** Line with proof, for the printed CV. */
-  proof: string
 }
 
 export interface Spec {
@@ -51,6 +48,8 @@ export interface Profile {
   workingLanguages: string
   pillars: Pillar[]
   specs: Spec[]
+  /** The numbers a recruiter should see first; headline of the printed CV. */
+  keyNumbers: Metric[]
 }
 
 export interface Achievement {
@@ -74,6 +73,8 @@ export interface Role {
   /** Shown after the company name, e.g. "formerly Kooomo". */
   companyNote?: string
   companyUrl?: string
+  /** What the company does, in a few words, for readers who do not know it. */
+  context?: string
   title: string
   location: string
   start: DateValue

@@ -62,6 +62,13 @@ describe("static pages", () => {
     }
   })
 
+  test("the printed CV leads with key numbers, links back to the website, and shows the offer match", () => {
+    for (const name of ["generic", "heymondo"]) assert.match(html(name), /years of PHP in production/)
+    assert.ok(html("generic").includes('href="https://lechatquidanse.github.io/cv/"'))
+    assert.ok(html("heymondo").includes('href="https://lechatquidanse.github.io/cv/hey-mondo/"'))
+    assert.match(html("heymondo").replace(/<!-- -->/g, ""), /8 of 9 requirements matched directly/)
+  })
+
   test("no placeholders or employer-internal details ship", () => {
     const forbidden = [/\[YOUR/i, /TODO/, /lorem/i, /PRD-\d+/, /atlassian/i, /Zerogrey/i, /data-testid/, /@kooomo\.com/i]
     for (const file of htmlFiles()) {

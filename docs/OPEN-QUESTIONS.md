@@ -15,3 +15,5 @@ Facts kept out of the CV, or shown conservatively, until confirmed.
 | Skills from older CVs | GraphQL, Django, MongoDB, Kubernetes, Vue.js, React Native, Jest not shown | Add back only with a role or project to attach them to |
 | "600+ database tests" | From the pgTAP `plan()` counts in the FMQ repo (613) | Re-check with `make backend-test` before each job search |
 | 2 Actors 1 Film | Not shown | Old CV said ~20k downloads; Google Play shows 1K+ |
+| Company one-liners | Printed under each role: "SaaS e-commerce platform", "Bus transport for schools and employers", "Electronic-signature platform" | Wording you are happy to defend |
+| Lessons / setbacks per role | Not shown | A real setback and what changed after it, per role, if you want one on the PDF |

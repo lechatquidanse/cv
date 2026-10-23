@@ -65,6 +65,7 @@ export function resolveCv(variant: Variant = genericVariant): ResolvedCv {
       status: variant.status ?? cv.profile.status,
       pitch: variant.pitch ?? cv.profile.pitch,
       specs: cv.profile.specs.map((spec) => ({ ...spec, value: withYears(spec.value) })),
+      keyNumbers: cv.profile.keyNumbers.map((metric) => ({ ...metric, value: withYears(metric.value) })),
     },
     yearsOfExperience,
     roles: roles.filter((role) => !role.condensed),
@@ -112,7 +113,7 @@ export function validateCv(data: Cv = cv, variants: Variant[] = allVariants): st
     }
   })
 
-  const metrics = [...data.product.metrics, ...data.projects.flatMap((p) => p.metrics)]
+  const metrics = [...data.profile.keyNumbers, ...data.product.metrics, ...data.projects.flatMap((p) => p.metrics)]
   for (const metric of metrics) {
     if (!metric.source || !MONTH.test(metric.asOf)) {
       errors.push(`Metric "${metric.label}" needs a source and an asOf month`)
