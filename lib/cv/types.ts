@@ -31,6 +31,8 @@ export interface Profile {
   /** Status pill, e.g. "Available · Remote EU". */
   status: string
   pitch: string
+  /** Phrases of the pitch set in bold, so a skimming reader catches them. */
+  pitchHighlights?: string[]
   location: string
   email: string
   phone: string
@@ -44,18 +46,7 @@ export interface Profile {
   specs: Spec[]
 }
 
-export interface Achievement {
-  /** Stable id, referenced by variants to select and reorder bullets. */
-  id: string
-  text: string
-  /** Shown on screen. */
-  featured?: boolean
-  /** `false` keeps it on the website only; the printed CV keeps the strongest lines. */
-  print?: boolean
-}
-
-/** A piece of work inside a role that deserves more than one bullet. */
-/** One project told as need → what I built → result, shown on screen under the role. */
+/** One project told as need → what I did → result. */
 export interface RoleStory {
   title: string
   problem: string
@@ -65,6 +56,21 @@ export interface RoleStory {
   figure?: string
   /** Optional link to where the story continues on the page, e.g. the AI section. */
   more?: ExternalLink
+}
+
+/**
+ * A piece of work inside a role, shown as cards: title → need → what I did → result.
+ * `problem` and `figure` stay empty until confirmed (see docs/OPEN-QUESTIONS.md);
+ * the need card is then left out.
+ */
+export interface RoleProject extends Omit<RoleStory, "problem"> {
+  /** Stable id, referenced by variants to reorder and choose what prints. */
+  id: string
+  problem?: string
+  /** The tools named in the work, shown as chips. */
+  tech: string[]
+  /** `false` keeps it on the website only; the printed CV shows two per role. */
+  print?: boolean
 }
 
 export interface Role {
@@ -80,8 +86,12 @@ export interface Role {
   start: DateValue
   /** Omit for a current role. */
   end?: DateValue
-  achievements: Achievement[]
-  story?: RoleStory
+  /** Recent roles: the work, told as cards. */
+  projects: RoleProject[]
+  /** Smaller contributions, on one line under the cards. */
+  also?: string[]
+  /** Earlier roles: one line instead of cards. */
+  summary?: string
   stack: string[]
   /** Earlier roles are shown in a condensed list in the career section. */
   condensed?: boolean
@@ -202,8 +212,8 @@ export interface Variant {
   pitch?: string
   /** One line under a section title, tying it to the offer. */
   sectionIntros?: Partial<Record<SectionId, string>>
-  /** Per role: achievement ids in order, and which of them the screen shows. */
-  roles?: Partial<Record<string, { order?: string[]; featured?: string[] }>>
+  /** Per role: project ids in order, and which of them the PDF prints. */
+  roles?: Partial<Record<string, { order?: string[]; print?: string[] }>>
   /** Skill group labels to show first. */
   skillsFirst?: string[]
   fit?: JobFit

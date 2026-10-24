@@ -3,7 +3,7 @@
  *
  * The generic CV lives at the site root; each job offer gets its own route
  * (/cv/<slug>/) and PDF. A variant may change the headline, pitch and status,
- * reorder or re-feature existing achievements, and answer the offer's main themes
+ * reorder existing projects and choose which ones print, and answer the offer's main themes
  * with evidence. It must not introduce facts that content.ts does not hold.
  */
 import type { Variant } from "./types"
@@ -20,12 +20,14 @@ export const jobVariants: Variant[] = [
     status: "Available · Barcelona · right to work in Spain",
     roles: {
       expandnow: {
-        order: ["integrations", "invoicing", "testing", "e2e-workflow", "ai-mentoring"],
-        featured: ["integrations", "invoicing", "testing", "e2e-workflow", "ai-mentoring"],
+        order: ["integrations", "invoicing", "unit-tests", "spec-to-test"],
+        print: ["integrations", "invoicing"],
       },
+      // Tech lead stays on the website; the fit block already names its Kotlin and hexagonal work.
+      zeelo: { print: ["bnpl"] },
     },
     sectionIntros: {
-      experience: "16 years of PHP; the last two on Laravel with MySQL, integrating payment and logistics APIs.",
+      experience: "{years} years of PHP; the last two on Laravel with MySQL, integrating payment and logistics APIs.",
       ai: "AI applied to backend work: specs and tests keep the output predictable.",
       projects: "A B2C product I run end to end, with an API-only backend and safe releases.",
     },
@@ -37,23 +39,19 @@ export const jobVariants: Variant[] = [
       items: [
         {
           theme: "Laravel and MySQL",
-          evidence: "16 years of PHP, from Silex to Symfony and Laravel; Laravel and MySQL at ExpandNow (2024 – 2026)",
+          evidence: "{years} years of PHP, from Silex to Symfony and Laravel; Laravel and MySQL at ExpandNow (2024 – 2026)",
         },
         {
           theme: "APIs and integrations",
-          evidence: "Adyen, Sendcloud and Salesupply at ExpandNow; Stripe direct debits at Zeelo; REST APIs since 2015",
-        },
-        {
-          theme: "Testing and delivery",
-          evidence: "Unit coverage from 0% to 15% on an untested codebase; one Docker image from laptop to production at Zeelo",
+          evidence: "Stripe direct debits for 100+ schools at Zeelo; Adyen, Sendcloud and Salesupply at ExpandNow; REST APIs since 2015",
         },
         {
           theme: "Clean architecture",
-          evidence: "DDD and CQRS in production; microservices at Signaturit; open-source Bicing API, 162★",
+          evidence: "DDD and CQRS at Signaturit, 50K signatures a week; Kotlin, hexagonal and event sourcing at Zeelo",
         },
         {
-          theme: "AI applied to backend",
-          evidence: "Spec-to-test workflow: user stories become scenarios approved by the product owner, then tested code; a weekly LLM content pipeline live in my app",
+          theme: "Testing and AI",
+          evidence: "Unit coverage from 0% to 15%; Playwright tests behind each release, from a Claude Code workflow",
         },
       ],
     },

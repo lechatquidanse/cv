@@ -1,5 +1,11 @@
 import type React from "react"
 
+// Written out in full so Tailwind keeps both classes in the build.
+const bandClass = {
+  soft: "section-band section-band-soft",
+  dark: "section-band section-band-dark",
+}
+
 /** One section of the page. The printed CV has its own layout (PrintCv). */
 export function Section({
   id,
@@ -7,6 +13,7 @@ export function Section({
   title,
   titleClassName = "",
   intro,
+  band,
   children,
 }: {
   id: string
@@ -15,13 +22,15 @@ export function Section({
   titleClassName?: string
   /** One line under the title, set by job variants. */
   intro?: string
+  /** A full-width background that tells the reader a new chapter starts. */
+  band?: "soft" | "dark"
   children: React.ReactNode
 }) {
   return (
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className="section"
+      className={band ? `section ${bandClass[band]}` : "section"}
     >
       <p className="eyebrow eyebrow-rule">{eyebrow}</p>
       <h2 id={`${id}-title`} className={`mt-2 ${titleClassName}`}>

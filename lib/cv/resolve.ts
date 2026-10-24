@@ -1,7 +1,7 @@
 import { cv } from "./content"
 import { allVariants, genericVariant } from "./variants"
 import { staticFile } from "./format"
-import { SECTION_IDS, type Achievement, type Cv, type DateValue, type Profile, type Role, type SkillGroup, type Variant } from "./types"
+import { SECTION_IDS, type Cv, type DateValue, type Profile, type Role, type RoleProject, type SkillGroup, type Variant } from "./types"
 
 /** Content as one variant presents it: the same facts, selected and ordered. */
 export interface ResolvedCv extends Omit<Cv, "profile" | "roles" | "skills"> {
@@ -27,10 +27,10 @@ function withYears(text: string): string {
   return text.replace("{years}", String(yearsOfExperience))
 }
 
-function byIds(achievements: Achievement[], ids: string[], roleId: string): Achievement[] {
+function byIds(projects: RoleProject[], ids: string[], roleId: string): RoleProject[] {
   return ids.map((id) => {
-    const found = achievements.find((a) => a.id === id)
-    if (!found) throw new Error(`Unknown achievement "${id}" for role "${roleId}"`)
+    const found = projects.find((p) => p.id === id)
+    if (!found) throw new Error(`Unknown project "${id}" for role "${roleId}"`)
     return found
   })
 }
@@ -38,11 +38,12 @@ function byIds(achievements: Achievement[], ids: string[], roleId: string): Achi
 function applyRole(role: Role, variant: Variant): Role {
   const override = variant.roles?.[role.id]
   if (!override) return role
-  const ordered = override.order ? byIds(role.achievements, override.order, role.id) : role.achievements
-  const featured = override.featured
+  if (override.print) byIds(role.projects, override.print, role.id)
+  const ordered = override.order ? byIds(role.projects, override.order, role.id) : role.projects
+  const print = override.print
   return {
     ...role,
-    achievements: ordered.map((a) => (featured ? { ...a, featured: featured.includes(a.id) } : a)),
+    projects: ordered.map((p) => (print ? { ...p, print: print.includes(p.id) } : p)),
   }
 }
 
@@ -57,9 +58,15 @@ function orderSkills(skills: SkillGroup[], first: string[] = []): SkillGroup[] {
 
 export function resolveCv(variant: Variant = genericVariant): ResolvedCv {
   const roles = cv.roles.map((role) => applyRole(role, variant))
+  const sectionIntros = variant.sectionIntros
+    ? Object.fromEntries(Object.entries(variant.sectionIntros).map(([id, text]) => [id, text && withYears(text)]))
+    : undefined
+  const fit = variant.fit
+    ? { ...variant.fit, items: variant.fit.items.map((item) => ({ ...item, evidence: withYears(item.evidence) })) }
+    : undefined
   return {
     ...cv,
-    variant,
+    variant: { ...variant, sectionIntros, fit },
     profile: {
       ...cv.profile,
       headline: variant.headline ?? cv.profile.headline,
@@ -107,9 +114,10 @@ export function validateCv(data: Cv = cv, variants: Variant[] = allVariants): st
     if (previous && toNumber(previous.start) < toNumber(role.start)) {
       errors.push(`${role.id}: roles must be listed newest first`)
     }
-    if (role.achievements.length === 0) errors.push(`${role.id}: no achievements`)
-    if (new Set(role.achievements.map((a) => a.id)).size !== role.achievements.length) {
-      errors.push(`${role.id}: duplicate achievement ids`)
+    if (role.condensed && !role.summary) errors.push(`${role.id}: an earlier role needs a summary`)
+    if (!role.condensed && role.projects.length === 0) errors.push(`${role.id}: no projects`)
+    if (new Set(role.projects.map((p) => p.id)).size !== role.projects.length) {
+      errors.push(`${role.id}: duplicate project ids`)
     }
   })
 

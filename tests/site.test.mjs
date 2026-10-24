@@ -12,7 +12,7 @@ const OUT = "out"
 const pages = {
   // The generic CV is a one-page résumé; a job CV adds its fit block and may take two.
   generic: { path: "/cv/", file: "index.html", pdf: "Stephane-El-Manouni-CV.pdf", maxPages: 1 },
-  heymondo: { path: "/cv/hey-mondo/", file: "hey-mondo/index.html", pdf: "hey-mondo/Stephane-El-Manouni-CV-Heymondo.pdf", maxPages: 2 },
+  heymondo: { path: "/cv/hey-mondo/", file: "hey-mondo/index.html", pdf: "hey-mondo/Stephane-El-Manouni-CV-Heymondo.pdf", maxPages: 1 },
 }
 const html = (name) => readFileSync(join(OUT, pages[name].file), "utf8")
 const sectionIds = (name) => [...html(name).matchAll(/<section id="([^"]+)"/g)].map((m) => m[1])
@@ -73,12 +73,26 @@ describe("static pages", () => {
     }
   })
 
-  test("the printed CV tells each story as need, build and result, links back to the website, and explains the fit without a score", () => {
-    for (const name of ["generic", "heymondo"]) assert.match(html(name), /Need → what I built → result|1 · The need/)
+  test("the CV tells each project as cards (title, need, what I did, result), links back to the website, and explains the fit without a score", () => {
+    for (const name of ["generic", "heymondo"]) {
+      for (const label of ["The need", "What I did", "Result"]) assert.ok(html(name).includes(label), `${name}: ${label}`)
+    }
     assert.ok(html("generic").includes('href="https://lechatquidanse.github.io/cv/"'))
     assert.ok(html("heymondo").includes('href="https://lechatquidanse.github.io/cv/hey-mondo/"'))
     assert.match(html("heymondo"), /Why my background fits/)
     assert.doesNotMatch(html("heymondo").replace(/<!-- -->/g, ""), /requirements matched|Direct match/)
+  })
+
+  test("the years of experience appear once on screen, as the hero's invitation to the experience", () => {
+    const screen = html("generic").split("data-print-only")[0].replace(/<!-- -->/g, "")
+    assert.equal(screen.match(/16 years/gi)?.length, 1)
+    assert.match(screen, /My 16 years in production/)
+  })
+
+  test("recent company names link to their websites", () => {
+    for (const url of ["https://www.expandnow.com/", "https://zeelo.co/", "https://www.signaturit.com/"]) {
+      assert.ok(html("generic").includes(`href="${url}"`), url)
+    }
   })
 
   test("no placeholders or employer-internal details ship", () => {

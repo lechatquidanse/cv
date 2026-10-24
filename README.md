@@ -30,15 +30,18 @@ All facts live in **`lib/cv/content.ts`**; components never hold CV text.
 - Write only what you could defend in an interview. Unconfirmed facts go to `docs/OPEN-QUESTIONS.md`.
 - Every metric has a `source` and an `asOf` month. Re-check them before each job search.
 - Nothing internal to an employer: no ticket keys, internal URLs, client ids or screenshots.
-- An achievement with `featured: true` shows on screen. The PDF is the short version: an
-  achievement, app challenge or project with `print: false` stays on the website only, and
-  only the first five skill groups are printed. The AI workflow section is not printed; its
-  ExpandNow bullet is.
+- Each recent role is a list of `projects`, shown as cards: title → need (`problem`) →
+  what I did (`action`, `tech`) → result (`figure`, `result`). Leave `problem` or `figure`
+  out until confirmed; the card adapts. Smaller contributions go in `also`, earlier roles
+  get a one-line `summary`.
+- The PDF is the short version: a project, app challenge or side project with
+  `print: false` stays on the website only, and only the first five skill groups are
+  printed. The AI workflow section is not printed; its ExpandNow project is.
 - Numbers inside any
   printed text are set in bold automatically.
 - The generic PDF must fit one A4 page, a job PDF two: `npm test` fails otherwise, so shorten
-  text rather than shrinking it. Each role prints its story box and its first 2 printable
-  bullets; mark a bullet `print: false` to keep it on the website only.
+  text rather than shrinking it. Each role prints its first 2 printable projects; mark a
+  project `print: false` to keep it on the website only.
 - The app icon lives in `public/media/fmq-icon.png` (256 px, from the iOS app icon).
 
 ## A CV for a specific job offer
@@ -51,7 +54,7 @@ Each offer gets its own page and PDF, e.g. `/cv/hey-mondo/`. To add one, append 
   slug: "acme",                       // → /cv/acme/
   headline: "Senior Backend Engineer · PHP",
   pitch: "…",                         // optional; must only restate facts from content.ts
-  roles: { expandnow: { order: [...], featured: [...] } },   // reorder / re-feature bullets
+  roles: { expandnow: { order: [...], print: [...] } },      // reorder projects, choose what prints
   sectionIntros: { experience: "…", ai: "…", app: "…" },   // one line under each section title
   skillsFirst: ["Backend", "Quality"],
   fit: { company: "Acme", role: "…", offerUrl: "…", items: [{ theme, evidence }] },

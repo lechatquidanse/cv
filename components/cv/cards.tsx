@@ -2,12 +2,12 @@ import type React from "react"
 import { formatMonth, formatPeriod, staticFile } from "@/lib/cv/format"
 import { roleLogos } from "@/lib/cv/logos"
 import type { ResolvedCv } from "@/lib/cv/resolve"
-import type { Actor, JobFit, Role, RoleStory, SectionId } from "@/lib/cv/types"
+import type { Actor, JobFit, Role, RoleProject, RoleStory, SectionId } from "@/lib/cv/types"
 import { Section, SpecList, Tile } from "./Card"
-import { withBoldNumbers } from "./BoldNumbers"
+import { withBoldNumbers, withHighlights } from "./BoldNumbers"
 import { CareerTimeline } from "./CareerTimeline"
 import { CountUp } from "./CountUp"
-import { AppleIcon, PlayStoreIcon } from "./icons"
+import { AppleIcon, ArrowIcon, DownloadIcon, MailIcon, PlayStoreIcon } from "./icons"
 import { TickOnView } from "./TickOnView"
 
 interface SectionProps {
@@ -18,8 +18,12 @@ const intro = (cv: ResolvedCv, id: SectionId) => cv.variant.sectionIntros?.[id]
 
 const buttonPrimary =
   "flex items-center justify-center gap-2 rounded-[10px] bg-ink px-4 py-3 text-[15px] font-semibold text-paper no-underline transition-opacity hover:opacity-90"
-const buttonSecondary =
-  "flex items-center justify-center rounded-[10px] border border-ink px-4 py-3 text-[15px] font-semibold no-underline transition-colors hover:bg-surface"
+
+/** The page's two main calls to action: quiet colour, a soft lift, an icon each. */
+const heroButton =
+  "inline-flex h-[50px] items-center justify-center gap-2.5 rounded-xl px-5 text-[15px] font-semibold no-underline transition-colors"
+const heroPrimary = `${heroButton} btn-primary text-white`
+const heroSecondary = `${heroButton} btn-secondary text-ink`
 
 export function Hero({ cv }: SectionProps) {
   const { profile } = cv
@@ -27,19 +31,20 @@ export function Hero({ cv }: SectionProps) {
   const [valueLead, joiner, valueTail] = profile.valueLine.split(/ (&|—) /)
   const company = cv.variant.fit?.company
   return (
-    <section id="top" aria-labelledby="top-title" className="pb-12 pt-8 lg:pt-12">
+    <section id="top" aria-labelledby="top-title" className="pb-12 pt-8 lg:pb-16 lg:pt-14">
       <p className="inline-flex items-center gap-2 rounded-full bg-accent-soft py-1 pl-2.5 pr-3 text-[12.5px] font-medium text-accent">
         <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-accent" />
         {profile.status}
       </p>
 
-      {/* The name stays clear but no larger than the value it brings. */}
-      <h1 id="top-title" className="display mt-5 text-[30px] lg:text-[38px]">
+      {/* The name is a quiet label; the value line and the pitch carry the page. */}
+      <h1 id="top-title" className="mt-6 text-[15px] font-medium text-ink-2 lg:mt-7 lg:text-[17px]">
         {profile.name}
+        <span className="font-normal text-muted"> · {profile.headline.split(" · ")[0]}</span>
         <span className="sr-only">, {profile.headline}</span>
       </h1>
 
-      <p className="display mt-5 max-w-[30ch] text-[38px] leading-[1.06] lg:text-[52px]">
+      <p className="display mt-3 max-w-[22ch] text-[40px] leading-[1.03] tracking-[-0.025em] [text-wrap:balance] lg:mt-3.5 lg:text-[64px] lg:leading-[1.02]">
         {valueLead}
         {valueTail && (
           <span className="text-accent">
@@ -49,27 +54,28 @@ export function Hero({ cv }: SectionProps) {
         )}
       </p>
 
-      <p className="mt-4 max-w-[60ch] text-[15.5px] leading-relaxed text-ink-2 lg:text-[17px]">
-        {profile.pitch}
+      <p className="mt-5 max-w-[40em] text-[17px] leading-[1.55] text-ink-2 [text-wrap:pretty] lg:mt-6 lg:text-[20px]">
+        {withHighlights(profile.pitch, profile.pitchHighlights)}
       </p>
 
-      <div className="mt-6 flex flex-wrap gap-2">
-        <a href={cv.pdfHref} className={buttonPrimary}>
+      <div className="mt-7 grid gap-2.5 sm:flex sm:flex-wrap sm:gap-3 lg:mt-8">
+        <a href={cv.pdfHref} className={heroPrimary}>
+          <DownloadIcon />
           {company ? `Download my CV for ${company}` : "Download CV"}
         </a>
-        <a href={`mailto:${profile.email}`} className={buttonSecondary}>
+        <a href={`mailto:${profile.email}`} className={heroSecondary}>
+          <MailIcon />
           Email me
         </a>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-10 lg:mt-12">
         <SpecList items={profile.specs} />
       </div>
 
-      {/* Invites the reader down to the experience, the heart of the CV. */}
+      {/* The one mention of the years: an invitation down to the experience. */}
       <a href="#experience" className="scroll-cue">
-        {cv.yearsOfExperience} years <span aria-hidden="true">↓</span>
-        <span className="sr-only"> of experience</span>
+        My {cv.yearsOfExperience} years in production <span aria-hidden="true">↓</span>
       </a>
     </section>
   )
@@ -101,36 +107,119 @@ export function FitSection({ fit }: { fit: JobFit }) {
   )
 }
 
+/** The company name, linked to its website when there is one. */
+function CompanyName({ role }: { role: Role }) {
+  if (!role.companyUrl) return <>{role.company}</>
+  return (
+    <a href={role.companyUrl} className="company-link">
+      {role.company}
+      <span aria-hidden="true" className="ml-1 text-[0.75em] text-gold">
+        ↗
+      </span>
+    </a>
+  )
+}
+
 function RoleEntry({ role }: { role: Role }) {
   const logo = roleLogos[role.id]
   return (
-    <article id={`role-${role.id}`} className="relative isolate border-t border-rule py-5 first:border-t-0 first:pt-0">
+    <article id={`role-${role.id}`} className="relative isolate border-t border-rule pt-8 first:border-t-0 first:pt-0 [&+&]:mt-12">
       {logo && (
         // eslint-disable-next-line @next/next/no-img-element -- static export, decorative
         <img src={staticFile(logo)} alt="" aria-hidden="true" className="role-logo" />
       )}
-      <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-        <h3 className="text-[16px] font-semibold lg:text-[17px]">
-          {role.company} <span className="font-normal text-ink-2">· {role.title}</span>
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h3 className="flex items-center gap-2.5 text-[18px] font-semibold lg:text-[20px]">
+          {logo && (
+            // eslint-disable-next-line @next/next/no-img-element -- static export, decorative
+            <img src={staticFile(logo)} alt="" aria-hidden="true" className="role-logo-inline" />
+          )}
+          <span>
+            <CompanyName role={role} /> <span className="font-normal text-ink-2">· {role.title}</span>
+          </span>
         </h3>
         <p className="font-mono text-[11px] text-muted">
-          {formatPeriod(role.start, role.end)} · {role.location}
+          {formatPeriod(role.start, role.end)} · {role.location.split(",")[0]}
         </p>
       </div>
       {role.context && (
-        <p className="mt-0.5 text-[13px] text-muted">
+        <p className="mt-1 text-[13.5px] text-muted">
           {role.context}
           {role.companyNote && ` · ${role.companyNote}`}
         </p>
       )}
-      <ul className="mt-2 max-w-[68ch] list-disc space-y-1.5 pl-4 text-[14.5px] leading-snug text-ink-2 marker:text-rule-strong">
-        {role.achievements.filter((a) => a.featured).map((a) => (
-          <li key={a.id}>{withBoldNumbers(a.text)}</li>
+      <div className="mt-5 grid gap-6 lg:gap-4">
+        {role.projects.map((project, i) => (
+          <ProjectFlow key={project.id} project={project} index={i} />
         ))}
-      </ul>
-      {role.story && <StoryFlow story={role.story} />}
-      <p className="mt-2 font-mono text-[11px] text-muted">{role.stack.join(" · ")}</p>
+      </div>
+      {role.also && role.also.length > 0 && (
+        <p className="mt-4 text-[13.5px] leading-relaxed text-muted">
+          <span className="mr-2 font-mono text-[10.5px] tracking-[0.12em] text-gold">ALSO</span>
+          {role.also.join(" ")}
+        </p>
+      )}
     </article>
+  )
+}
+
+/**
+ * One project as four cards joined by arrows: title → need → what I did → result.
+ * Side by side on wide screens, stacked on phones. A project without a confirmed
+ * need skips that card; one without a figure shows its result in words only.
+ */
+function ProjectFlow({ project, index }: { project: RoleProject; index: number }) {
+  const arrow = (
+    <li aria-hidden="true" className="flow-arrow">
+      <ArrowIcon className="rotate-90 lg:rotate-0" />
+    </li>
+  )
+  return (
+    <ol className={`flow ${project.problem ? "" : "flow-no-need"}`} aria-label={project.title}>
+      <li className="flow-card flow-title">
+        <span className="font-mono text-[10.5px] tracking-[0.12em] text-[#7a5a22]">{String(index + 1).padStart(2, "0")}</span>
+        <h4 className="display text-[21px] leading-[1.12] lg:mt-2.5">{project.title}</h4>
+      </li>
+      {project.problem && (
+        <>
+          {arrow}
+          <li className="flow-card">
+            <span className="flow-label">The need</span>
+            <span className="mt-2 block text-[14px] leading-[1.55] text-ink-2">{withBoldNumbers(project.problem)}</span>
+          </li>
+        </>
+      )}
+      {arrow}
+      <li className="flow-card">
+        <span className="flow-label">What I did</span>
+        <span className="mt-2 block text-[14px] leading-[1.55]">{project.action}</span>
+        <span className="mt-3 flex flex-wrap gap-1.5">
+          {project.tech.map((t) => (
+            <span key={t} className="rounded-md border border-[#e4e4de] bg-paper px-2 py-0.5 font-mono text-[10.5px] text-ink-2">
+              {t}
+            </span>
+          ))}
+        </span>
+      </li>
+      {arrow}
+      <li className="flow-card flow-result">
+        <span className="flow-label flex items-center gap-1.5 text-accent">
+          <span aria-hidden="true" className="flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[9px] text-white">
+            ✓
+          </span>
+          Result
+        </span>
+        {project.figure && <span className="display mt-2.5 block text-[28px] leading-[1.05] text-accent">{project.figure}</span>}
+        <span className={`mt-1.5 block leading-normal text-accent-ink ${project.figure ? "text-[13.5px]" : "mt-2.5 text-[15px] font-medium"}`}>
+          {withBoldNumbers(project.result)}
+        </span>
+        {project.more && (
+          <a href={project.more.href} className="link mt-auto pt-2.5 text-[13px] font-semibold text-accent">
+            {project.more.label} ↓
+          </a>
+        )}
+      </li>
+    </ol>
   )
 }
 
@@ -176,35 +265,38 @@ export function ExperienceSection({ cv }: SectionProps) {
   // Cities in the order they were lived in: Paris → London → Barcelona.
   const allRoles = [...cv.roles, ...cv.earlierRoles].reverse()
   const cities = Array.from(new Set(allRoles.map((role) => role.location.split(",")[0])))
+  const lastYear = cv.reviewedAt.slice(0, 4)
   return (
     <Section
       id="experience"
-      eyebrow={`${cv.yearsOfExperience} years`}
+      eyebrow={`${cv.profile.careerStart} → ${lastYear} · ${cities.join(" → ")}`}
       title="Experience"
       titleClassName="display text-[38px] lg:text-[48px]"
       intro={intro(cv, "experience")}
     >
-      <p className="mt-3 font-mono text-[11.5px] text-muted">
-        {cities.join(" → ")} · working languages: {cv.profile.workingLanguages}
+      <p className="mt-3 text-[15px] text-muted">
+        Each project read left to right: what was needed, what I did, what came out of it. Working languages:{" "}
+        {cv.profile.workingLanguages}.
       </p>
       <CareerTimeline roles={[...cv.roles, ...cv.earlierRoles]} />
-      <div className="mt-8 border-t border-rule pt-6">
+      <div className="mt-10">
         {cv.roles.map((role) => (
           <RoleEntry key={role.id} role={role} />
         ))}
       </div>
-      <h3 className="eyebrow mt-4 border-t border-rule pt-5">Earlier, across Europe</h3>
+      <h3 className="eyebrow mt-12 border-t border-rule pt-5">Earlier, across Europe</h3>
       <ul className="mt-2 text-[14px]">
         {cv.earlierRoles.map((role) => (
           <li key={role.id} id={`role-${role.id}`} className="flex flex-wrap items-baseline justify-between gap-x-3 py-1.5">
             <span>
               <span className="font-semibold">
-                {role.title} · {role.company}
-              </span>
-              <span className="text-ink-2"> · {role.achievements.map((a) => a.text).join(" ")}</span>
+                <CompanyName role={role} />
+              </span>{" "}
+              · {role.title}
+              <span className="text-ink-2"> · {role.summary}</span>
             </span>
             <span className="font-mono text-[11px] text-muted">
-              {formatPeriod(role.start, role.end)} · {role.location}
+              {formatPeriod(role.start, role.end)} · {role.location.split(",")[0]}
             </span>
           </li>
         ))}
@@ -212,12 +304,6 @@ export function ExperienceSection({ cv }: SectionProps) {
       <div className="mt-4 border-t border-rule">
         <EducationAndLanguages cv={cv} />
       </div>
-      <p className="mt-6 text-[13px] text-muted">
-        Every achievement is in the downloadable CV.{" "}
-        <a href={cv.pdfHref} className="link">
-          Download it
-        </a>
-      </p>
     </Section>
   )
 }
@@ -242,6 +328,7 @@ export function AiSection({ cv }: SectionProps) {
       }
       titleClassName="display text-[42px] lg:text-[56px]"
       intro={intro(cv, "ai")}
+      band="soft"
     >
       <p className="mt-3 max-w-[60ch] text-[15px] leading-relaxed text-ink-2">
         {aiWorkflow.intro}
@@ -457,6 +544,7 @@ export function ContactSection({ cv }: SectionProps) {
         </>
       }
       titleClassName="display text-[48px] lg:text-[64px]"
+      band="dark"
     >
       <div className="mt-4 grid gap-8 lg:grid-cols-2">
         <div>

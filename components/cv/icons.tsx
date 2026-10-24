@@ -48,3 +48,29 @@ export function PlayStoreIcon() {
     </svg>
   )
 }
+
+export function DownloadIcon() {
+  return (
+    <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" {...stroke} strokeWidth={2}>
+      <path d="M12 4v11M7 10l5 5 5-5M5 20h14" />
+    </svg>
+  )
+}
+
+export function MailIcon() {
+  return (
+    <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" {...stroke} strokeWidth={2} className="text-gold">
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="m3 7 9 6 9-6" />
+    </svg>
+  )
+}
+
+/** Points right; rotate it with a class to point down. */
+export function ArrowIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" {...stroke} className={className}>
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  )
+}
