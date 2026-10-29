@@ -230,6 +230,13 @@
     opacity: 0.35;
   }
 
+  /* The same one-colour marks next to each place in the fit block. */
+  .fit-logo {
+    @apply h-4 w-4 shrink-0 object-contain;
+    filter: grayscale(1) contrast(1.2);
+    opacity: 0.5;
+  }
+
   /* Career timeline: one rounded bar per role on a shared year axis. */
   .timeline-bar {
     @apply absolute inset-y-0 cursor-pointer rounded text-white transition-[filter];

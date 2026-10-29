@@ -33,8 +33,8 @@ describe("static pages", () => {
 
   test("sections appear in reading order, with one h1", () => {
     assert.deepEqual(sectionIds("generic"), ["top", "experience", "ai", "projects", "contact"])
-    assert.deepEqual(sectionIds("heymondo"), ["top", "fit", "experience", "ai", "projects", "contact"])
-    assert.deepEqual(sectionIds("preply"), ["top", "fit", "experience", "ai", "projects", "contact"])
+    assert.deepEqual(sectionIds("heymondo"), ["top", "experience", "ai", "projects", "fit", "contact"])
+    assert.deepEqual(sectionIds("preply"), ["top", "experience", "ai", "projects", "fit", "contact"])
     assert.equal(html("generic").match(/<h1/g)?.length, 1)
   })
 

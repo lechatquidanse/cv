@@ -7,10 +7,11 @@ import { SectionNav, type NavSection } from "./SectionNav"
 export function CvPage({ cv }: { cv: ResolvedCv }) {
   const fit = cv.variant.fit
   const sections: NavSection[] = [
-    ...(fit ? [{ id: "fit", label: "FIT", accent: true }] : []),
     { id: "experience", label: "EXPERIENCE" },
     { id: "ai", label: "AI", accent: true },
     { id: "projects", label: "PROJECTS" },
+    // The fit closes the page as a recap, after the story it draws on.
+    ...(fit ? [{ id: "fit", label: "FIT", accent: true }] : []),
     { id: "contact", label: "CONTACT" },
   ]
 
@@ -23,10 +24,10 @@ export function CvPage({ cv }: { cv: ResolvedCv }) {
       <main id="main" tabIndex={-1} className="page focus:outline-none">
         <div data-screen-only>
           <Hero cv={cv} />
-          {fit && <FitSection fit={fit} />}
           <ExperienceSection cv={cv} />
           <AiSection cv={cv} />
           <ProjectsSection cv={cv} />
+          {fit && <FitSection fit={fit} />}
           <ContactSection cv={cv} />
         </div>
         <PrintCv cv={cv} />

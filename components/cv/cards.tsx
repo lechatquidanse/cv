@@ -135,7 +135,7 @@ function FitPlace({ at }: { at?: string }) {
     <span className="flex items-center gap-2 text-[13px] font-medium text-ink">
       {logo && (
         // eslint-disable-next-line @next/next/no-img-element -- static export, decorative
-        <img src={staticFile(logo)} alt="" aria-hidden="true" className="h-4 w-4 rounded-[3px] object-contain" />
+        <img src={staticFile(logo)} alt="" aria-hidden="true" className="fit-logo" />
       )}
       {at ?? <span className="font-normal text-muted">Across roles</span>}
     </span>
