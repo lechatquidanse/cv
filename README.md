@@ -15,7 +15,7 @@ downloadable PDF; both layouts read the same content, so they never drift apart.
 | `npm run dev` | Local preview at http://localhost:3000 |
 | `npm run build` | Static export to `out/` plus every PDF; fails on invalid CV content |
 | `npm run pdf` | Re-prints the PDFs only (runs automatically after every build) |
-| `npm test` | Checks the export: pages, links, PDFs (one A4 page; two for a job CV), no leaks, real-device widths, navigation, app icon |
+| `npm test` | Checks the export: pages, links, PDFs (one A4 page each), no leaks, real-device widths, navigation, app icon |
 | `npm run check` | All of the above, in order |
 | `npm run serve` | Serves `out/` at http://127.0.0.1:4173/cv/, like GitHub Pages |
 
@@ -39,9 +39,10 @@ All facts live in **`lib/cv/content.ts`**; components never hold CV text.
   printed. The AI workflow section is not printed; its ExpandNow project is.
 - Numbers inside any
   printed text are set in bold automatically.
-- The generic PDF must fit one A4 page, a job PDF two: `npm test` fails otherwise, so shorten
-  text rather than shrinking it. Each role prints its first 2 printable projects; mark a
-  project `print: false` to keep it on the website only.
+- Every PDF must fit one A4 page, with wide margins: `npm test` fails otherwise, so shorten
+  text rather than shrinking it or the spacing. Each role prints its first printable project;
+  mark a project `print: false` to keep it on the website only. A variant that prints none of
+  a role's projects (`print: []`) shows that role's first result on one line instead.
 - The app icon lives in `public/media/fmq-icon.png` (256 px, from the iOS app icon).
 
 ## A CV for a specific job offer

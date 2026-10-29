@@ -193,7 +193,9 @@ export interface FitItem {
 export interface JobFit {
   company: string
   role: string
-  offerUrl: string
+  offerUrl?: string
+  /** Why this company, in the candidate's words; shown on the website only. */
+  motivation?: string
   items: FitItem[]
 }
 

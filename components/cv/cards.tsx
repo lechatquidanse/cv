@@ -90,11 +90,17 @@ export function FitSection({ fit }: { fit: JobFit }) {
       titleClassName="display text-[30px] lg:text-[40px]"
     >
       <p className="mt-2 text-sm text-ink-2">
-        The main themes of the offer, and where I have done that work.{" "}
-        <a href={fit.offerUrl} className="link">
-          Read the offer
-        </a>
+        The main themes of the offer, and where I have done that work.
+        {fit.offerUrl && (
+          <>
+            {" "}
+            <a href={fit.offerUrl} className="link">
+              Read the offer
+            </a>
+          </>
+        )}
       </p>
+      {fit.motivation && <p className="mt-3 text-[15px] text-ink">{fit.motivation}</p>}
       <dl className="mt-4 border-y border-rule text-[14px]">
         {fit.items.map((item) => (
           <div key={item.theme} className="grid gap-1 border-b border-rule py-2.5 last:border-b-0 sm:grid-cols-[190px_1fr] sm:gap-4">

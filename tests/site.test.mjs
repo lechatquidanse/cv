@@ -10,9 +10,10 @@ import { startServer } from "../scripts/serve.mjs"
 
 const OUT = "out"
 const pages = {
-  // The generic CV is a one-page résumé; a job CV adds its fit block and may take two.
+  // Every CV prints on one A4 page; a job CV swaps the core skills for its fit block.
   generic: { path: "/cv/", file: "index.html", pdf: "Stephane-El-Manouni-CV.pdf", maxPages: 1 },
   heymondo: { path: "/cv/hey-mondo/", file: "hey-mondo/index.html", pdf: "hey-mondo/Stephane-El-Manouni-CV-Heymondo.pdf", maxPages: 1 },
+  preply: { path: "/cv/preply/", file: "preply/index.html", pdf: "preply/Stephane-El-Manouni-CV-Preply.pdf", maxPages: 1 },
 }
 const html = (name) => readFileSync(join(OUT, pages[name].file), "utf8")
 const sectionIds = (name) => [...html(name).matchAll(/<section id="([^"]+)"/g)].map((m) => m[1])
@@ -33,11 +34,13 @@ describe("static pages", () => {
   test("sections appear in reading order, with one h1", () => {
     assert.deepEqual(sectionIds("generic"), ["top", "experience", "ai", "projects", "contact"])
     assert.deepEqual(sectionIds("heymondo"), ["top", "fit", "experience", "ai", "projects", "contact"])
+    assert.deepEqual(sectionIds("preply"), ["top", "fit", "experience", "ai", "projects", "contact"])
     assert.equal(html("generic").match(/<h1/g)?.length, 1)
   })
 
   test("job variants are not indexed; the generic CV is", () => {
     assert.match(html("heymondo"), /<meta name="robots" content="noindex, nofollow"/)
+    assert.match(html("preply"), /<meta name="robots" content="noindex, nofollow"/)
     assert.doesNotMatch(html("generic"), /noindex/)
   })
 

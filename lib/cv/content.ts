@@ -86,7 +86,10 @@ export const cv: Cv = {
           print: false,
         },
       ],
-      also: ["Mentor the team on setting up and configuring Claude Code."],
+      also: [
+        "Mentor the team on setting up and configuring Claude Code.",
+        "On call for production, with AWS CloudWatch and Zendesk.",
+      ],
       stack: ["PHP", "Laravel", "Node.js", "MySQL", "AWS", "Playwright"],
     },
     {
@@ -102,8 +105,8 @@ export const cv: Cv = {
         {
           id: "bnpl",
           title: "Instalment billing",
-          problem: "Schools could not pay a full year of bus transport up front, and the company did not want a third-party pay-later provider.",
-          action: "In-house recurring billing: a scheduled job charges each period by SEPA or UK direct debit, through Stripe.",
+          problem: "Schools could not pay a full year of bus transport up front.",
+          action: "Proposed building it in-house rather than paying a third-party pay-later provider. A scheduled job charges each period by SEPA or UK direct debit, through Stripe.",
           tech: ["Stripe", "SEPA direct debit", "UK direct debit"],
           figure: "100+ schools",
           result: "signed in the first year.",
@@ -112,9 +115,10 @@ export const cv: Cv = {
           id: "tech-lead",
           title: "Tech lead & mentoring",
           problem: "No coding best practices shared across the team.",
-          action: "Started a weekly tech meeting to share features, failures and new tools. Introduced Kotlin, DDD and hexagonal architecture; brought event sourcing to best practice.",
+          action: "Started a weekly tech meeting and set the standards: framework-agnostic code, dependency injection, a unit-tested domain. Introduced Kotlin and hexagonal architecture.",
           tech: ["Kotlin", "DDD", "Hexagonal", "Event sourcing"],
-          result: "Shared coding standards, kept consistent through pull-request reviews.",
+          figure: "6 engineers",
+          result: "in 2 squads share one set of standards, kept consistent through pull-request reviews.",
         },
         {
           id: "event-sourcing",
@@ -234,6 +238,14 @@ export const cv: Cv = {
         result: "Published every Monday since October 2026.",
       },
       {
+        title: "A/B tests",
+        problem: "Know which changes keep players, and which bring new ones.",
+        action: "A/B tested the order of the first quiz’s riddles against retention, and the Google Play store listing against acquisition.",
+        figure: "+10%",
+        result: "first-day retention from the new riddle order, and +8% device acquisitions on Google Play.",
+        print: false,
+      },
+      {
         title: "Safe releases",
         problem: "A release must never break the live apps or their data.",
         action: "A store upload starts only when every unit and end-to-end test passes and the database migrations are already live.",
@@ -294,10 +306,10 @@ export const cv: Cv = {
   ],
 
   skills: [
-    { label: "Backend", items: ["PHP", "Symfony", "Laravel", "Node.js", "TypeScript", "Python", "Kotlin", "REST APIs"] },
+    { label: "Backend", items: ["PHP", "Symfony", "Laravel", "Node.js", "TypeScript", "Python (APIs, automation)", "Kotlin", "REST APIs"] },
     { label: "Architecture", items: ["DDD", "CQRS", "Event sourcing", "Hexagonal architecture", "Microservices"] },
-    { label: "Quality", items: ["Unit testing", "End-to-end testing (Playwright)", "BDD (Behat, Gherkin)", "Code review"] },
-    { label: "Data & cloud", items: ["MySQL", "PostgreSQL", "TimescaleDB", "Supabase", "Redis", "AWS", "Google Cloud", "Docker", "CI/CD (GitLab CI, Jenkins)"] },
+    { label: "Quality", items: ["Unit testing", "End-to-end testing (Playwright)", "BDD (Behat, Gherkin)", "Code review", "A/B testing"] },
+    { label: "Data & cloud", items: ["MySQL", "PostgreSQL", "TimescaleDB", "Supabase", "Redis", "AWS", "AWS CloudWatch", "Google Cloud", "Docker", "CI/CD (GitLab CI, Jenkins)"] },
     { label: "AI", items: ["Claude Code", "AI agents", "Spec-driven development", "LLM content pipelines"] },
     { label: "Integrations", items: ["Stripe", "Adyen", "Sendcloud", "Salesupply", "SEPA and UK direct debit"] },
     { label: "Front end & mobile", items: ["React", "SwiftUI", "Jetpack Compose", "Flutter"] },

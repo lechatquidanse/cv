@@ -13,12 +13,12 @@ interface Props {
 // The printed CV is the one-page version: only items not marked `print: false`.
 // The website has the rest.
 const printed = <T extends { print?: boolean }>(items: T[]) => items.filter((item) => item.print !== false)
-// A role prints at most this many projects, so the CV fits one page.
-const PRINTED_PROJECTS = 2
+// A role prints its first printable project only, so the CV fits one page with room to breathe.
+const PRINTED_PROJECTS = 1
 
 function Heading({ children, aside }: { children: React.ReactNode; aside?: React.ReactNode }) {
   return (
-    <h2 className="mb-2 flex break-after-avoid items-baseline justify-between border-b border-rule pb-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-accent">
+    <h2 className="mb-3 flex break-after-avoid items-baseline justify-between border-b border-rule pb-1.5 font-mono text-[10px] font-medium uppercase tracking-[0.1em] text-accent">
       <span>{children}</span>
       {aside && <span className="normal-case tracking-normal text-muted">{aside}</span>}
     </h2>
@@ -30,9 +30,10 @@ function Header({ cv, websiteHref }: Props & { websiteHref: string }) {
   return (
     <div className="flex items-start justify-between gap-6">
       <div>
-        <p className="whitespace-nowrap text-[13px] font-semibold">
+        {/* Name and title on two lines, so the contact column keeps inside the page margins. */}
+        <p className="text-[13px] font-semibold">
           {profile.name}
-          <span className="font-normal text-muted"> · {profile.headline.split(" · ")[0]}</span>
+          <span className="block font-normal text-muted">{profile.headline.split(" · ")[0]}</span>
         </p>
         <p className="mt-0.5 text-[10.5px] text-accent">{profile.status}</p>
       </div>
@@ -95,28 +96,28 @@ function PrintProject({ project, index }: { project: RoleProject; index: number 
     ? "grid-cols-[0.5fr_12px_1fr_12px_1.4fr_12px_0.8fr]"
     : "grid-cols-[0.5fr_12px_2.4fr_12px_0.8fr]"
   return (
-    <ol className={`mt-1.5 grid break-inside-avoid ${columns} text-[10px] leading-[1.4]`}>
-      <li className="rounded-lg border border-[#e6d6b6] bg-gold-soft px-2.5 py-1.5">
+    <ol className={`mt-2.5 grid break-inside-avoid ${columns} text-[10px] leading-[1.4]`}>
+      <li className="rounded-lg border border-[#e6d6b6] bg-gold-soft px-3 py-2">
         <span className="block font-mono text-[8px] tracking-[0.1em] text-[#7a5a22]">{String(index + 1).padStart(2, "0")}</span>
         <span className="display mt-0.5 block text-[12.5px] leading-[1.15]">{project.title}</span>
       </li>
       {project.problem && (
         <>
           {arrow}
-          <li className="rounded-lg border border-rule px-2.5 py-1.5">
+          <li className="rounded-lg border border-rule px-3 py-2">
             <span className="block font-mono text-[7.5px] uppercase tracking-[0.1em] text-muted">The need</span>
             <span className="mt-0.5 block text-ink-2">{withBoldNumbers(project.problem)}</span>
           </li>
         </>
       )}
       {arrow}
-      <li className="rounded-lg border border-rule px-2.5 py-1.5">
+      <li className="rounded-lg border border-rule px-3 py-2">
         <span className="block font-mono text-[7.5px] uppercase tracking-[0.1em] text-muted">What I did</span>
         <span className="mt-0.5 block">{project.action}</span>
         <span className="mt-0.5 block font-mono text-[8.5px] text-muted">{project.tech.join(" · ")}</span>
       </li>
       {arrow}
-      <li className="rounded-lg border border-[#cfdcd3] bg-accent-soft px-2.5 py-1.5">
+      <li className="rounded-lg border border-[#cfdcd3] bg-accent-soft px-3 py-2">
         <span className="block font-mono text-[7.5px] uppercase tracking-[0.1em] text-accent">✓ Result</span>
         {project.figure && <span className="display mt-0.5 block text-[15px] leading-[1.1] text-accent">{project.figure}</span>}
         <span className={`block text-accent-ink ${project.figure ? "" : "mt-0.5 font-medium"}`}>{withBoldNumbers(project.result)}</span>
@@ -129,7 +130,7 @@ function Fit({ fit }: { fit: JobFit }) {
   return (
     <section className="break-inside-avoid">
       <Heading aside={`${fit.role} · ${fit.company}`}>Why my background fits</Heading>
-      <dl className="grid gap-y-1.5 text-[10.5px] leading-normal">
+      <dl className="grid gap-y-2 text-[10.5px] leading-normal">
         {fit.items.map((item) => (
           <div key={item.theme} className="grid grid-cols-[124px_1fr] gap-3">
             <dt className="font-semibold">{item.theme}</dt>
@@ -143,9 +144,11 @@ function Fit({ fit }: { fit: JobFit }) {
 
 function RoleBlock({ role }: { role: Role }) {
   const logo = roleLogos[role.id]
+  const shown = printed(role.projects).slice(0, PRINTED_PROJECTS)
+  const lead = role.projects[0]
   return (
     // A role may continue on the next page between projects; its heading never ends a page.
-    <article className="pb-3 last:pb-0 print:break-inside-auto">
+    <article className="pb-4 last:pb-0 print:break-inside-auto">
       <div className="flex break-after-avoid items-center justify-between gap-3">
         <h3 className="flex items-center gap-1.5 text-[13px] font-semibold">
           {logo && (
@@ -163,11 +166,16 @@ function RoleBlock({ role }: { role: Role }) {
           {formatPeriod(role.start, role.end)} · {role.location.split(",")[0]}
         </p>
       </div>
-      {printed(role.projects)
-        .slice(0, PRINTED_PROJECTS)
-        .map((project, i) => (
-          <PrintProject key={project.id} project={project} index={i} />
-        ))}
+      {shown.map((project, i) => (
+        <PrintProject key={project.id} project={project} index={i} />
+      ))}
+      {/* A variant that prints no card for this role still names its main result, on one line. */}
+      {shown.length === 0 && lead && (
+        <p className="mt-1 text-[10.5px] leading-normal text-ink-2">
+          <span className="font-semibold text-ink">{lead.title}</span> ·{" "}
+          {withBoldNumbers(lead.figure ? `${lead.figure} ${lead.result}` : lead.result)}
+        </p>
+      )}
     </article>
   )
 }
@@ -229,7 +237,7 @@ function MoreAboutMe({ cv, websiteHref }: Props & { websiteHref: string }) {
   return (
     <section className="break-inside-avoid">
       <Heading aside={`More on ${shortUrl(websiteHref)}`}>More about me</Heading>
-      <dl className="space-y-1 text-[11px] leading-normal">
+      <dl className="space-y-1.5 text-[11px] leading-normal">
         {rows.map((row) => (
           <div key={row.label} className="grid grid-cols-[96px_1fr] gap-3">
             <dt className="font-semibold">{row.label}</dt>
@@ -253,7 +261,7 @@ export function PrintCv({ cv }: Props) {
   const websiteHref = `${SITE_URL}${variant.slug ? `${variant.slug}/` : ""}`
   return (
     <div data-print-only className="print-cv">
-      <div className="space-y-4">
+      <div className="space-y-5">
         <div>
           <Header cv={cv} websiteHref={websiteHref} />
           <ValueLine cv={cv} />

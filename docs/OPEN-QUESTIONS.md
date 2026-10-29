@@ -25,6 +25,7 @@ its result in words. Answer only what you could defend in an interview.
 | Topic | Current state | To confirm |
 |---|---|---|
 | Heymondo motivation | Not shown | Why this role interests you, in your words |
+| Preply offer link | Fit section shows no "Read the offer" link | The job posting URL (`offerUrl` in variants.ts) |
 | Deux Cinq year | Period reads "Freelance" | Year of the work |
 
 ## Decided (October 2026)
@@ -49,4 +50,8 @@ its result in words. Answer only what you could defend in an interview.
 | 2 Actors 1 Film | Not shown |
 | Company one-liners | Confirmed |
 | Knowledge sharing | Weekly tech meeting at Zeelo and Signaturit; at ExpandNow, mentoring on Claude Code setup |
+| Zeelo build vs buy | Building instalment billing in-house instead of a third-party pay-later provider was my proposal |
+| FMQ A/B tests | New first-quiz riddle order: +10% day-1 retention. Google Play listing test: +8% device acquisitions |
+| ExpandNow on-call | On call for production with AWS CloudWatch and Zendesk |
+| Zeelo tech lead reach | Weekly meeting for 6 engineers in 2 squads; standards: framework-agnostic code, DI, APIs and connections out of the domain, unit-tested domain |
 | Spec-to-test origin | No QA team, no end-to-end tests, test cases hard for the product owner to validate; built with other teams' feedback |
