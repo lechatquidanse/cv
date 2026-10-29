@@ -1,6 +1,6 @@
 import type React from "react"
 import { formatMonth, formatPeriod, staticFile } from "@/lib/cv/format"
-import { roleLogos } from "@/lib/cv/logos"
+import { placeLogos, roleLogos } from "@/lib/cv/logos"
 import type { ResolvedCv } from "@/lib/cv/resolve"
 import type { Actor, JobFit, Role, RoleProject, RoleStory, SectionId } from "@/lib/cv/types"
 import { Section, SpecList, Tile } from "./Card"
@@ -101,15 +101,44 @@ export function FitSection({ fit }: { fit: JobFit }) {
         )}
       </p>
       {fit.motivation && <p className="mt-3 text-[15px] text-ink">{fit.motivation}</p>}
-      <dl className="mt-4 border-y border-rule text-[14px]">
+      {/* Three columns to skim: what the offer asks, where I did it, what I did. */}
+      <div aria-hidden="true" className="mt-5 hidden grid-cols-[190px_150px_1fr] gap-4 pb-2 font-mono text-[11px] uppercase tracking-[0.12em] text-muted sm:grid">
+        <span>The offer asks</span>
+        <span>Where</span>
+        <span>What I did</span>
+      </div>
+      <dl className="mt-4 border-y border-rule text-[14px] sm:mt-0">
         {fit.items.map((item) => (
-          <div key={item.theme} className="grid gap-1 border-b border-rule py-2.5 last:border-b-0 sm:grid-cols-[190px_1fr] sm:gap-4">
+          <div key={item.theme} className="grid gap-2 border-b border-rule py-3 last:border-b-0 sm:grid-cols-[190px_1fr] sm:gap-4">
             <dt className="font-semibold">{item.theme}</dt>
-            <dd className="text-ink-2">{item.evidence}</dd>
+            <dd>
+              <ul className="grid gap-2">
+                {item.proofs.map((proof) => (
+                  <li key={proof.did} className="grid items-start gap-0.5 sm:grid-cols-[150px_1fr] sm:gap-4">
+                    <FitPlace at={proof.at} />
+                    <span className="text-ink-2">{withBoldNumbers(proof.did)}</span>
+                  </li>
+                ))}
+              </ul>
+            </dd>
           </div>
         ))}
       </dl>
     </Section>
+  )
+}
+
+/** Where a fit proof happened: the place's mark and name, or the whole career. */
+function FitPlace({ at }: { at?: string }) {
+  const logo = at && placeLogos[at]
+  return (
+    <span className="flex items-center gap-2 text-[13px] font-medium text-ink">
+      {logo && (
+        // eslint-disable-next-line @next/next/no-img-element -- static export, decorative
+        <img src={staticFile(logo)} alt="" aria-hidden="true" className="h-4 w-4 rounded-[3px] object-contain" />
+      )}
+      {at ?? <span className="font-normal text-muted">Across roles</span>}
+    </span>
   )
 }
 

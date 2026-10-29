@@ -184,10 +184,17 @@ export interface Cv {
   reviewedAt: string
 }
 
+/** One piece of evidence: where it happened, and what I did there. */
+export interface FitProof {
+  /** Company or product name; omitted when the proof spans the whole career. */
+  at?: string
+  did: string
+}
+
 /** One theme of a job offer, answered with existing evidence (no scores). */
 export interface FitItem {
   theme: string
-  evidence: string
+  proofs: FitProof[]
 }
 
 export interface JobFit {

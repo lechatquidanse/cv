@@ -132,9 +132,17 @@ function Fit({ fit }: { fit: JobFit }) {
       <Heading aside={`${fit.role} · ${fit.company}`}>Why my background fits</Heading>
       <dl className="grid gap-y-2 text-[10.5px] leading-normal">
         {fit.items.map((item) => (
-          <div key={item.theme} className="grid grid-cols-[140px_1fr] gap-3">
+          <div key={item.theme} className="grid grid-cols-[122px_1fr] gap-3">
             <dt className="font-semibold">{item.theme}</dt>
-            <dd className="text-ink-2">{withBoldNumbers(item.evidence)}</dd>
+            <dd className="text-ink-2">
+              {item.proofs.map((proof, i) => (
+                <span key={proof.did}>
+                  {i > 0 && "; "}
+                  {proof.at && <span className="font-medium text-ink">{proof.at}: </span>}
+                  {withBoldNumbers(proof.did)}
+                </span>
+              ))}
+            </dd>
           </div>
         ))}
       </dl>

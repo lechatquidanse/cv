@@ -62,7 +62,10 @@ export function resolveCv(variant: Variant = genericVariant): ResolvedCv {
     ? Object.fromEntries(Object.entries(variant.sectionIntros).map(([id, text]) => [id, text && withYears(text)]))
     : undefined
   const fit = variant.fit
-    ? { ...variant.fit, items: variant.fit.items.map((item) => ({ ...item, evidence: withYears(item.evidence) })) }
+    ? {
+        ...variant.fit,
+        items: variant.fit.items.map((item) => ({ ...item, proofs: item.proofs.map((p) => ({ ...p, did: withYears(p.did) })) })),
+      }
     : undefined
   return {
     ...cv,

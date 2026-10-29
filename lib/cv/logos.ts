@@ -7,3 +7,11 @@ export const roleLogos: Partial<Record<string, string>> = {
   zeelo: "/media/logos/zeelo.svg",
   signaturit: "/media/logos/signaturit.svg",
 }
+
+/** Marks next to the places named in a job's fit block, by display name. */
+export const placeLogos: Partial<Record<string, string>> = {
+  ExpandNow: roleLogos.expandnow,
+  Zeelo: roleLogos.zeelo,
+  Signaturit: roleLogos.signaturit,
+  "Foot Master Quiz": "/media/fmq-icon.png",
+}

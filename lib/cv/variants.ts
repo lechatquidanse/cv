@@ -43,19 +43,32 @@ export const jobVariants: Variant[] = [
       items: [
         {
           theme: "Laravel and MySQL",
-          evidence: "{years} years of PHP, from Silex to Symfony and Laravel; Laravel and MySQL at ExpandNow (2024 – 2026)",
+          proofs: [
+            { did: "{years} years of PHP, from Silex to Symfony and Laravel" },
+            { at: "ExpandNow", did: "Laravel and MySQL, 2024 – 2026" },
+          ],
         },
         {
           theme: "APIs and integrations",
-          evidence: "Stripe direct debits for 100+ schools at Zeelo; Adyen, Sendcloud and Salesupply at ExpandNow; REST APIs since 2015",
+          proofs: [
+            { at: "Zeelo", did: "Stripe direct debits for 100+ schools" },
+            { at: "ExpandNow", did: "Adyen, Sendcloud and Salesupply" },
+            { did: "REST APIs since 2015" },
+          ],
         },
         {
           theme: "Clean architecture",
-          evidence: "DDD and CQRS at Signaturit, 50K signatures a week; Kotlin, hexagonal and event sourcing at Zeelo",
+          proofs: [
+            { at: "Signaturit", did: "DDD and CQRS, 50K signatures a week" },
+            { at: "Zeelo", did: "Kotlin, hexagonal and event sourcing" },
+          ],
         },
         {
           theme: "Testing and AI",
-          evidence: "Unit coverage from 0% to 15%; Playwright tests behind each release, from a Claude Code workflow",
+          proofs: [
+            { at: "ExpandNow", did: "Unit coverage from 0% to 15%" },
+            { at: "ExpandNow", did: "Playwright tests behind each release, from a Claude Code workflow" },
+          ],
         },
       ],
     },
@@ -94,27 +107,42 @@ export const jobVariants: Variant[] = [
       items: [
         {
           theme: "Agentic AI workflows",
-          evidence: "Claude Code spec-to-test workflow adopted by 4 devs + PO; an AI content agent gated by 56 tests",
+          proofs: [
+            { at: "ExpandNow", did: "Claude Code spec-to-test workflow, adopted by 4 devs + PO" },
+            { at: "Foot Master Quiz", did: "AI content agent, gated by 56 tests" },
+          ],
         },
         {
           theme: "Product and A/B tests",
-          evidence: "A/B tests on my app: +10% first-day retention, +8% Play Store acquisition; 200K+ downloads",
+          proofs: [{ at: "Foot Master Quiz", did: "A/B tests: +10% first-day retention, +8% Play Store acquisition; 200K+ downloads" }],
         },
         {
           theme: "Third-party integrations",
-          evidence: "Stripe direct debit for 100+ schools at Zeelo; Adyen, Sendcloud and Salesupply at ExpandNow",
+          proofs: [
+            { at: "Zeelo", did: "Stripe direct debit for 100+ schools" },
+            { at: "ExpandNow", did: "Adyen, Sendcloud and Salesupply" },
+          ],
         },
         {
           theme: "Test culture and reviews",
-          evidence: "Unit coverage 0% to 15%; end-to-end tests behind each release; standards kept by PR reviews",
+          proofs: [
+            { at: "ExpandNow", did: "Unit coverage 0% to 15%; end-to-end tests behind each release" },
+            { at: "Zeelo", did: "Standards for 2 squads, kept by PR reviews" },
+          ],
         },
         {
           theme: "Monitoring and on-call",
-          evidence: "On call at ExpandNow with AWS CloudWatch and Zendesk; app releases gated by tests",
+          proofs: [
+            { at: "ExpandNow", did: "On call with AWS CloudWatch and Zendesk" },
+            { at: "Foot Master Quiz", did: "Releases gated by tests" },
+          ],
         },
         {
           theme: "Scale, Node.js and TS",
-          evidence: "DDD/CQRS microservices at Signaturit, 50K signatures a week; Node.js and TypeScript in production",
+          proofs: [
+            { at: "Signaturit", did: "DDD/CQRS microservices, 50K signatures a week" },
+            { at: "Zeelo", did: "Node.js and TypeScript in production" },
+          ],
         },
       ],
     },
