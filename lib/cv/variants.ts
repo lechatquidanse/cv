@@ -66,6 +66,9 @@ export const jobVariants: Variant[] = [
     slug: "preply",
     headline: "Senior Backend Engineer · Technical leadership · Agentic AI engineering",
     status: "Available · Barcelona · right to work in Spain",
+    pitch:
+      "{years} years of backend engineering. I set standards across squads, take greenfield systems from proposal to production, and put AI agents to work behind specs, tests and review gates.",
+    pitchHighlights: ["standards across squads", "from proposal to production", "behind specs, tests and review gates"],
     roles: {
       expandnow: {
         order: ["spec-to-test", "invoicing", "integrations", "unit-tests"],
@@ -91,11 +94,11 @@ export const jobVariants: Variant[] = [
       items: [
         {
           theme: "Agentic AI workflows",
-          evidence: "Claude Code spec-to-test workflow adopted by 4 devs + PO; AI quiz gated by 56 tests",
+          evidence: "Claude Code spec-to-test workflow adopted by 4 devs + PO; an AI content agent gated by 56 tests",
         },
         {
           theme: "Standards across squads",
-          evidence: "Weekly tech meeting, 6 engineers in 2 squads at Zeelo: DI, unit-tested domain, Kotlin",
+          evidence: "Weekly tech meetings at Zeelo (6 engineers, 2 squads) and Signaturit; DI, unit-tested domain",
         },
         {
           theme: "Greenfield, end to end",
@@ -107,7 +110,7 @@ export const jobVariants: Variant[] = [
         },
         {
           theme: "Reliability and on-call",
-          evidence: "On call at ExpandNow with AWS CloudWatch and Zendesk; releases gated by tests",
+          evidence: "On call at ExpandNow with AWS CloudWatch and Zendesk; app releases gated by tests",
         },
         {
           theme: "Data and Python",

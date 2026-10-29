@@ -555,7 +555,9 @@ export function ContactSection({ cv }: SectionProps) {
       <div className="mt-4 grid gap-8 lg:grid-cols-2">
         <div>
           <p className="text-[15px] leading-relaxed text-ink-2">
-            {profile.status}. Based in {profile.location}.
+            {profile.status}
+            {/* The status may already name the city. */}
+            {profile.status.includes(profile.location.split(",")[0]) ? "." : `. Based in ${profile.location}.`}
           </p>
           <a href={`mailto:${profile.email}`} className="link mt-5 block break-all text-lg font-semibold lg:text-xl">
             {profile.email}

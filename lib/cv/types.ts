@@ -212,6 +212,8 @@ export interface Variant {
   headline?: string
   status?: string
   pitch?: string
+  /** Phrases of the variant's pitch set in bold; required with `pitch`, since the profile's no longer match. */
+  pitchHighlights?: string[]
   /** One line under a section title, tying it to the offer. */
   sectionIntros?: Partial<Record<SectionId, string>>
   /** Per role: project ids in order, and which of them the PDF prints. */

@@ -72,6 +72,7 @@ export function resolveCv(variant: Variant = genericVariant): ResolvedCv {
       headline: variant.headline ?? cv.profile.headline,
       status: variant.status ?? cv.profile.status,
       pitch: withYears(variant.pitch ?? cv.profile.pitch),
+      pitchHighlights: variant.pitch ? variant.pitchHighlights : cv.profile.pitchHighlights,
       specs: cv.profile.specs.map((spec) => ({ ...spec, value: withYears(spec.value) })),
     },
     yearsOfExperience,

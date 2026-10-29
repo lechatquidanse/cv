@@ -93,8 +93,8 @@ function PrintProject({ project, index }: { project: RoleProject; index: number 
     </li>
   )
   const columns = project.problem
-    ? "grid-cols-[0.5fr_12px_1fr_12px_1.4fr_12px_0.8fr]"
-    : "grid-cols-[0.5fr_12px_2.4fr_12px_0.8fr]"
+    ? "grid-cols-[0.6fr_12px_1fr_12px_1.4fr_12px_0.8fr]"
+    : "grid-cols-[0.6fr_12px_2.4fr_12px_0.8fr]"
   return (
     <ol className={`mt-2.5 grid break-inside-avoid ${columns} text-[10px] leading-[1.4]`}>
       <li className="rounded-lg border border-[#e6d6b6] bg-gold-soft px-3 py-2">
@@ -132,7 +132,7 @@ function Fit({ fit }: { fit: JobFit }) {
       <Heading aside={`${fit.role} · ${fit.company}`}>Why my background fits</Heading>
       <dl className="grid gap-y-2 text-[10.5px] leading-normal">
         {fit.items.map((item) => (
-          <div key={item.theme} className="grid grid-cols-[124px_1fr] gap-3">
+          <div key={item.theme} className="grid grid-cols-[140px_1fr] gap-3">
             <dt className="font-semibold">{item.theme}</dt>
             <dd className="text-ink-2">{withBoldNumbers(item.evidence)}</dd>
           </div>
@@ -169,11 +169,11 @@ function RoleBlock({ role }: { role: Role }) {
       {shown.map((project, i) => (
         <PrintProject key={project.id} project={project} index={i} />
       ))}
-      {/* A variant that prints no card for this role still names its main result, on one line. */}
+      {/* A variant that prints no card for this role still tells its main project, in one sentence. */}
       {shown.length === 0 && lead && (
         <p className="mt-1 text-[10.5px] leading-normal text-ink-2">
-          <span className="font-semibold text-ink">{lead.title}</span> ·{" "}
-          {withBoldNumbers(lead.figure ? `${lead.figure} ${lead.result}` : lead.result)}
+          <span className="font-semibold text-ink">{lead.title}</span> · {lead.action.replace(/\.$/, "")} →{" "}
+          <span className="text-accent-ink">{withBoldNumbers(lead.figure ? `${lead.figure} ${lead.result}` : lead.result)}</span>
         </p>
       )}
     </article>

@@ -58,7 +58,7 @@ export const cv: Cv = {
         },
         {
           id: "spec-to-test",
-          title: "Spec-to-test workflow",
+          title: "Spec‑to‑test workflow",
           problem: "No QA team, no end-to-end tests, and test cases the product owner found hard to validate.",
           action: "A Claude Code workflow: approved Given / When / Then scenarios, then one real-browser test at a time. Shaped with other teams’ feedback.",
           tech: ["Claude Code", "Playwright", "Gherkin", "Jira"],
