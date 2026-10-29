@@ -64,32 +64,32 @@ export const jobVariants: Variant[] = [
   },
   {
     slug: "preply",
-    headline: "Senior Backend Engineer · Technical leadership · Agentic AI engineering",
+    headline: "Senior Backend Engineer · Product features · AI-augmented development",
     status: "Available · Barcelona · right to work in Spain",
     pitch:
-      "{years} years of backend engineering. I set standards across squads, take greenfield systems from proposal to production, and put AI agents to work behind specs, tests and review gates.",
-    pitchHighlights: ["standards across squads", "from proposal to production", "behind specs, tests and review gates"],
+      "{years} years of backend engineering. I ship product features with product owners, integrate third-party APIs, and put AI agents to work behind specs, tests and review gates.",
+    pitchHighlights: ["product features", "third-party APIs", "behind specs, tests and review gates"],
     roles: {
       expandnow: {
-        order: ["spec-to-test", "invoicing", "integrations", "unit-tests"],
+        order: ["spec-to-test", "integrations", "invoicing", "unit-tests"],
         print: ["spec-to-test"],
       },
       zeelo: {
-        order: ["tech-lead", "bnpl", "event-sourcing"],
-        print: ["tech-lead"],
+        order: ["bnpl", "tech-lead", "event-sourcing"],
+        print: ["bnpl"],
       },
       // The fit block names Signaturit's scale; the role prints its result on one line.
       signaturit: { print: [] },
     },
     sectionIntros: {
-      experience: "{years} years of backend work: setting standards across squads, and greenfield systems shipped end to end.",
+      experience: "{years} years of backend work: product features, third-party integrations, and a test culture the team keeps.",
       ai: "AI as a thought partner: I keep architecture, business logic and security; specs and tests decide when it ships.",
       projects: "A B2C product I run end to end: A/B tests, an AI pipeline behind quality gates, 200K+ downloads.",
     },
-    skillsFirst: ["AI", "Architecture", "Backend", "Quality", "Data & cloud"],
+    skillsFirst: ["Backend", "Integrations", "AI", "Quality", "Architecture"],
     fit: {
       company: "Preply",
-      role: "Senior II Backend Engineer",
+      role: "Senior Backend Engineer",
       motivation: "My wife learned Italian on Preply, and everyone I know who has used it has told me great things about it.",
       items: [
         {
@@ -97,24 +97,24 @@ export const jobVariants: Variant[] = [
           evidence: "Claude Code spec-to-test workflow adopted by 4 devs + PO; an AI content agent gated by 56 tests",
         },
         {
-          theme: "Standards across squads",
-          evidence: "Weekly tech meetings at Zeelo (6 engineers, 2 squads) and Signaturit; DI, unit-tested domain",
+          theme: "Product and A/B tests",
+          evidence: "A/B tests on my app: +10% first-day retention, +8% Play Store acquisition; 200K+ downloads",
         },
         {
-          theme: "Greenfield, end to end",
-          evidence: "Proposed and built in-house Stripe billing: 100+ schools; native app rewrite in 6 months",
+          theme: "Third-party integrations",
+          evidence: "Stripe direct debit for 100+ schools at Zeelo; Adyen, Sendcloud and Salesupply at ExpandNow",
         },
         {
-          theme: "Architecture at scale",
-          evidence: "DDD/CQRS microservices at Signaturit, 50K signatures a week; event sourcing at Zeelo",
+          theme: "Test culture and reviews",
+          evidence: "Unit coverage 0% to 15%; end-to-end tests behind each release; standards kept by PR reviews",
         },
         {
-          theme: "Reliability and on-call",
+          theme: "Monitoring and on-call",
           evidence: "On call at ExpandNow with AWS CloudWatch and Zendesk; app releases gated by tests",
         },
         {
-          theme: "Data and Python",
-          evidence: "A/B tests: +10% first-day retention, +8% Play Store acquisition; Python for ML, automation",
+          theme: "Scale, Node.js and TS",
+          evidence: "DDD/CQRS microservices at Signaturit, 50K signatures a week; Node.js and TypeScript in production",
         },
       ],
     },
