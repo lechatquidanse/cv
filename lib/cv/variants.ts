@@ -176,7 +176,8 @@ export const jobVariants: Variant[] = [
     skillsFirst: ["AI", "Backend", "Front end & mobile", "Architecture", "Quality"],
     fit: {
       company: "Joko",
-      role: "Software Engineer",
+      role: "Software Engineer (senior/staff level)",
+      offerUrl: "https://jobs.ashbyhq.com/joko/a5378a0d-409f-43f2-84f5-edc006d5b5fb",
       items: [
         {
           theme: "Ownership end to end",
@@ -209,8 +210,15 @@ export const jobVariants: Variant[] = [
         {
           theme: "Technical direction",
           proofs: [
-            { at: "Zeelo", did: "Standards for 6 engineers in 2 squads" },
+            { at: "Zeelo", did: "Tech meetings, standards for 6 engineers" },
             { at: "ExpandNow", did: "Mentor the team on Claude Code" },
+          ],
+        },
+        {
+          theme: "Data and operations",
+          proofs: [
+            { at: "Bicing", did: "Collects and predicts bike availability" },
+            { at: "ExpandNow", did: "On call with AWS CloudWatch and Zendesk" },
           ],
         },
         {
