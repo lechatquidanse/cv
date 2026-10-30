@@ -14,6 +14,7 @@ const pages = {
   generic: { path: "/cv/", file: "index.html", pdf: "Stephane-El-Manouni-CV.pdf", maxPages: 1 },
   heymondo: { path: "/cv/hey-mondo/", file: "hey-mondo/index.html", pdf: "hey-mondo/Stephane-El-Manouni-CV-Heymondo.pdf", maxPages: 1 },
   preply: { path: "/cv/preply/", file: "preply/index.html", pdf: "preply/Stephane-El-Manouni-CV-Preply.pdf", maxPages: 1 },
+  joko: { path: "/cv/joko/", file: "joko/index.html", pdf: "joko/Stephane-El-Manouni-CV-Joko.pdf", maxPages: 1 },
 }
 const html = (name) => readFileSync(join(OUT, pages[name].file), "utf8")
 const sectionIds = (name) => [...html(name).matchAll(/<section id="([^"]+)"/g)].map((m) => m[1])
@@ -35,12 +36,14 @@ describe("static pages", () => {
     assert.deepEqual(sectionIds("generic"), ["top", "experience", "ai", "projects", "contact"])
     assert.deepEqual(sectionIds("heymondo"), ["top", "experience", "ai", "projects", "fit", "contact"])
     assert.deepEqual(sectionIds("preply"), ["top", "experience", "ai", "projects", "fit", "contact"])
+    assert.deepEqual(sectionIds("joko"), ["top", "experience", "ai", "projects", "fit", "contact"])
     assert.equal(html("generic").match(/<h1/g)?.length, 1)
   })
 
   test("job variants are not indexed; the generic CV is", () => {
     assert.match(html("heymondo"), /<meta name="robots" content="noindex, nofollow"/)
     assert.match(html("preply"), /<meta name="robots" content="noindex, nofollow"/)
+    assert.match(html("joko"), /<meta name="robots" content="noindex, nofollow"/)
     assert.doesNotMatch(html("generic"), /noindex/)
   })
 

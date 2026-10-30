@@ -149,6 +149,82 @@ export const jobVariants: Variant[] = [
     pdfFileName: "Stephane-El-Manouni-CV-Preply.pdf",
     indexable: false,
   },
+  {
+    slug: "joko",
+    headline: "Senior Software Engineer · Product builder · Full-stack · AI in production",
+    status: "Available · Barcelona · right to work in Spain",
+    pitch:
+      "{years} years of software engineering. I own products end to end, from the idea to production, across backend, web and mobile, and I put AI to work behind specs and tests.",
+    pitchHighlights: ["own products end to end", "backend, web and mobile", "behind specs and tests"],
+    roles: {
+      expandnow: {
+        order: ["spec-to-test", "integrations", "invoicing", "unit-tests"],
+        print: ["spec-to-test"],
+      },
+      zeelo: {
+        order: ["bnpl", "tech-lead", "event-sourcing"],
+        print: ["bnpl"],
+      },
+      // The fit block names Signaturit's scale; the role prints its result on one line.
+      signaturit: { print: [] },
+    },
+    sectionIntros: {
+      experience: "{years} years shipping product features end to end: payments, integrations, and standards the team keeps.",
+      ai: "AI as a collaborator: agents draft, specs and tests decide what ships.",
+      projects: "My own product, run end to end: 200K+ downloads, A/B tests, an AI pipeline behind quality gates.",
+    },
+    skillsFirst: ["AI", "Backend", "Front end & mobile", "Architecture", "Quality"],
+    fit: {
+      company: "Joko",
+      role: "Software Engineer",
+      items: [
+        {
+          theme: "Ownership end to end",
+          proofs: [
+            { at: "Zeelo", did: "In-house instalment billing for 100+ schools" },
+            { at: "Foot Master Quiz", did: "built and run solo" },
+          ],
+        },
+        {
+          theme: "Own app, open source",
+          proofs: [
+            { at: "Foot Master Quiz", did: "my own app, 200K+ downloads, 4.9★" },
+            { at: "Bicing", did: "open source, 162 GitHub stars" },
+          ],
+        },
+        {
+          theme: "Full-stack spirit",
+          proofs: [
+            { at: "Foot Master Quiz", did: "Flutter to SwiftUI and Compose in 6 months" },
+            { at: "Bicing", did: "Symfony, Python ML, React" },
+          ],
+        },
+        {
+          theme: "AI in production",
+          proofs: [
+            { at: "Foot Master Quiz", did: "AI quiz agent gated by 56 tests" },
+            { at: "ExpandNow", did: "Claude Code workflow, 4 devs + PO" },
+          ],
+        },
+        {
+          theme: "Technical direction",
+          proofs: [
+            { at: "Zeelo", did: "Standards for 6 engineers in 2 squads" },
+            { at: "ExpandNow", did: "Mentor the team on Claude Code" },
+          ],
+        },
+        {
+          theme: "Impact and scale",
+          proofs: [
+            { at: "Foot Master Quiz", did: "A/B tests, +10% first-day retention" },
+            { at: "Signaturit", did: "50K signatures a week" },
+          ],
+        },
+      ],
+    },
+    pdfFileName: "Stephane-El-Manouni-CV-Joko.pdf",
+    indexable: false,
+  },
 ]
 
 export const allVariants: Variant[] = [genericVariant, ...jobVariants]
