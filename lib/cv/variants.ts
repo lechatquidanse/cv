@@ -182,28 +182,28 @@ export const jobVariants: Variant[] = [
         {
           theme: "Ownership end to end",
           proofs: [
-            { at: "Zeelo", did: "In-house instalment billing for 100+ schools" },
-            { at: "Foot Master Quiz", did: "built and run solo" },
+            { at: "Zeelo", did: "In-house instalment billing, 100+ schools" },
+            { at: "Foot Master Quiz", did: "built solo" },
           ],
         },
         {
           theme: "Own app, open source",
           proofs: [
-            { at: "Foot Master Quiz", did: "my own app, 200K+ downloads, 4.9★" },
+            { at: "Foot Master Quiz", did: "200K+ downloads, 4.9★" },
             { at: "Bicing", did: "open source, 162 GitHub stars" },
           ],
         },
         {
           theme: "Full-stack spirit",
           proofs: [
-            { at: "Foot Master Quiz", did: "Flutter to SwiftUI and Compose in 6 months" },
+            { at: "Foot Master Quiz", did: "Flutter to SwiftUI and Compose" },
             { at: "Bicing", did: "Symfony, Python ML, React" },
           ],
         },
         {
           theme: "AI in production",
           proofs: [
-            { at: "Foot Master Quiz", did: "AI quiz agent gated by 56 tests" },
+            { at: "Foot Master Quiz", did: "AI agent gated by 56 tests" },
             { at: "ExpandNow", did: "Claude Code workflow, 4 devs + PO" },
           ],
         },
@@ -217,8 +217,8 @@ export const jobVariants: Variant[] = [
         {
           theme: "Data and operations",
           proofs: [
-            { at: "Bicing", did: "Collects and predicts bike availability" },
-            { at: "ExpandNow", did: "On call with AWS CloudWatch and Zendesk" },
+            { at: "Bicing", did: "Collects and predicts bike data" },
+            { at: "ExpandNow", did: "On call, CloudWatch, Zendesk" },
           ],
         },
         {
