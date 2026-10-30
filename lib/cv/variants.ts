@@ -108,7 +108,7 @@ export const jobVariants: Variant[] = [
         {
           theme: "Agentic AI workflows",
           proofs: [
-            { at: "ExpandNow", did: "Claude Code spec-to-test workflow, adopted by 4 devs + PO" },
+            { at: "ExpandNow", did: "Claude Code workflow, 4 devs + PO" },
             { at: "Foot Master Quiz", did: "AI content agent, gated by 56 tests" },
           ],
         },
@@ -126,8 +126,8 @@ export const jobVariants: Variant[] = [
         {
           theme: "Test culture and reviews",
           proofs: [
-            { at: "ExpandNow", did: "Unit coverage 0% to 15%; end-to-end tests behind each release" },
-            { at: "Zeelo", did: "Standards for 2 squads, kept by PR reviews" },
+            { at: "ExpandNow", did: "Unit coverage 0% to 15%, end-to-end tests" },
+            { at: "Zeelo", did: "Standards for 2 squads" },
           ],
         },
         {
@@ -140,8 +140,8 @@ export const jobVariants: Variant[] = [
         {
           theme: "Scale, Node.js and TS",
           proofs: [
-            { at: "Signaturit", did: "DDD/CQRS microservices, 50K signatures a week" },
-            { at: "Zeelo", did: "Node.js and TypeScript in production" },
+            { at: "Signaturit", did: "Microservices, 50K signatures a week" },
+            { at: "Zeelo", did: "Node.js and TypeScript" },
           ],
         },
       ],
@@ -154,8 +154,8 @@ export const jobVariants: Variant[] = [
     headline: "Senior Software Engineer · Product builder · Full-stack · AI in production",
     status: "Available · Barcelona · right to work in Spain",
     pitch:
-      "{years} years of software engineering. I own products end to end, from the idea to production, across backend, web and mobile, and I put AI to work behind specs and tests.",
-    pitchHighlights: ["own products end to end", "backend, web and mobile", "behind specs and tests"],
+      "{years} years of software engineering. I own products end to end, and put AI to work behind tests.",
+    pitchHighlights: ["own products end to end", "behind tests"],
     roles: {
       expandnow: {
         order: ["spec-to-test", "integrations", "invoicing", "unit-tests"],
